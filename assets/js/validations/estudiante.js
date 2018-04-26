@@ -62,12 +62,15 @@ function saveEstudent(){
                                 showMethod: 'slideDown',
                                 timeOut: 4000
                             };
-                        l.ladda('stop');
+                        
                         toastr.success('Los datos se guardaron correctamente', 'GUARDARON DATOS');                        
                     }, 1300);
+                    }else{
+                      sweetAlert("EL TIPO DE ARCHIVO ES INVALIDO","INTENTE CON  OTRO","error");
                     }
                 } 
             });
+            l.ladda('stop');
         }
     });
 }

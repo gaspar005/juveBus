@@ -92,34 +92,6 @@
   </div>
 </nav>
 
-<!-- <div class="navbar navbar-fixed-top" style="margin-bottom: 0;">
-  <div class="navbar-inner">
-    <div class="container"> 
-		  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-			  <span class="icon-bar"></span>
-	      <span class="icon-bar"></span>
-	      <span class="icon-bar"></span> 
-	    </a>
-	    <a class="navbar-brand" style="margin-bottom: 10px;" href="#"> <?php if ( isset($ruta) ) { echo $ruta; } ?> </a>
-      <div class="nav-collapse">
-        <ul class="nav navbar-nav pull-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-          		 <?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellidos'); ?>
-               <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="javascript:;">Profile</a></li>
-              <li><a href="<?php echo base_url('Login_admin_ctrl/logout'); ?>">Cerrar Sesion</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div> 
-    </div>
-  </div>
-</div> -->
-
 <div class="subnavbar">
   <div class="subnavbar-inner">
     <div class="container">
@@ -161,6 +133,18 @@
             <li <?php  if (isset($active1)) {  if ($active1 == "registro-operador") { echo "class='active'"; } } ?> >
               <a href="<?php echo base_url('operador-registro'); ?>">Registro</a>
             </li>
+          </ul>
+        </li>
+        <li <?php  if ($active == "saldos") { echo "class='active dropdown'"; }else { echo "class='dropdown'"; } ?>>
+          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" >
+            <i class="icon-cogs"></i>
+            <span>Saldo</span> 
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li <?php  if (isset($active1)) {  if ($active1 == "recarga") { echo "class='active'"; } } ?>>
+              <a href="<?php echo base_url('saldo-recarga'); ?>">Recarga</a>
+            </li>          
           </ul>
         </li>
         <li><a href="#"><i class="icon-list-alt"></i><span>Reports</span> </a> </li>

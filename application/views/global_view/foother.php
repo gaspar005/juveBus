@@ -76,7 +76,7 @@
 <script src="<?php echo base_url('assets/js/validations/estudiante.js'); ?>"></script>
 <!-- js operador -->
 <script src="<?php echo base_url('assets/js/validations/operador.js'); ?>"></script>
-
+<script src="<?php echo base_url('assets/js/validations/web/saldos.js'); ?>"></script>
 
 </body>
 </html>

@@ -25,49 +25,89 @@ COMIENZA LA CONSULTA DEL MODULO DE REGISTRO DE ESTUDIANTES
 	}
 	public function guardar_estudiante(){
        
-        $type = explode('.', $_FILES["img_estudiante"]["name"]);
-        $type = $type[count($type)-1];
-       
-        date_default_timezone_set('America/Cancun');
-
-        $date = date('H:i:s');
-        $now = date('Y-m-d');
-
-        $nombreEntero = $_FILES["img_estudiante"]["name"];
-
-        $nombre = explode(".", $nombreEntero);
-
-        $url = "./profiles/".$nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type;
-    
-        if(in_array($type, array("jpg", "png", "jpeg")))
-            if(is_uploaded_file($_FILES["img_estudiante"]["tmp_name"]))
-                move_uploaded_file($_FILES["img_estudiante"]["tmp_name"], $url);
-
-        $fecha = $this->input->post("year_fecha").'-'.$this->input->post("mes_fecha").'-'.$this->input->post("dia_fecha");
         
-        $estudiante = array(
-                    'codigo_joven' => $this->input->post("codigo"), 
-                    'nombre' => $this->input->post("nombre"), 
-                    'ap_pat' => $this->input->post("ape_pate"), 
-                    'ap_mat' => $this->input->post("ape_mate"), 
-                    'curp' => $this->input->post("curp"), 
-                    'fecha_nacimiento' => $fecha,
-                    'lugar_nacimiento' => $this->input->post("lugar_nacimiento"), 
-                    'lugar_residencia' => $this->input->post("lugar_recidencia"), 
-                    'status' => 1,
-                    'id_role' => 3,
-                    'avatar'  => $nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type,
-                    'password' => $this->bcrypt->hash_password($this->input->post("codigo")),
-        );
-        $query = $this->Estudiante_model->save_estudiante($estudiante);
+        if (isset($_FILES["img_estudiante"]["name"]) )  {
+            
+            $type = explode('.', $_FILES["img_estudiante"]["name"]);
+            $type = $type[count($type)-1];
+           
+            date_default_timezone_set('America/Cancun');
 
-        if ($query == 1) {
+            $date = date('H:i:s');
+            $now = date('Y-m-d');
+
+            $nombreEntero = $_FILES["img_estudiante"]["name"];
+
+            $nombre = explode(".", $nombreEntero);
+
+            $url = "./profiles/".$nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type;
+        
+            if(in_array($type, array("jpg", "png", "jpeg"))){
+                if(is_uploaded_file($_FILES["img_estudiante"]["tmp_name"])){
+                    move_uploaded_file($_FILES["img_estudiante"]["tmp_name"], $url);
+
+                     $fecha = $this->input->post("year_fecha").'-'.$this->input->post("mes_fecha").'-'.$this->input->post("dia_fecha");
+            
+                    $estudiante = array(
+                        'codigo_joven' => $this->input->post("codigo"), 
+                        'nombre' => $this->input->post("nombre"), 
+                        'ap_pat' => $this->input->post("ape_pate"), 
+                        'ap_mat' => $this->input->post("ape_mate"), 
+                        'curp' => $this->input->post("curp"), 
+                        'fecha_nacimiento' => $fecha,
+                        'lugar_nacimiento' => $this->input->post("lugar_nacimiento"), 
+                        'lugar_residencia' => $this->input->post("lugar_recidencia"), 
+                        'status' => 1,
+                        'id_role' => 3,
+                        'avatar'  => $nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type,
+                        'password' => $this->bcrypt->hash_password($this->input->post("codigo")),
+                    );
+                    $query = $this->Estudiante_model->save_estudiante($estudiante);
+
+                    if ($query == 1) {
+                    $result['resultado'] = true;
+                    } else {
+                        $result['resultado'] = false;
+                    }
+
+                    echo json_encode($result);
+
+                }
+            }else{
+
+                $result['resultado'] = false;
+
+                echo json_encode($result);
+            }
+
+        }else{
+
+            $fecha = $this->input->post("year_fecha").'-'.$this->input->post("mes_fecha").'-'.$this->input->post("dia_fecha");
+            
+            $estudiante = array(
+                        'codigo_joven' => $this->input->post("codigo"), 
+                        'nombre' => $this->input->post("nombre"), 
+                        'ap_pat' => $this->input->post("ape_pate"), 
+                        'ap_mat' => $this->input->post("ape_mate"), 
+                        'curp' => $this->input->post("curp"), 
+                        'fecha_nacimiento' => $fecha,
+                        'lugar_nacimiento' => $this->input->post("lugar_nacimiento"), 
+                        'lugar_residencia' => $this->input->post("lugar_recidencia"), 
+                        'status' => 1,
+                        'id_role' => 3,                        
+                        'password' => $this->bcrypt->hash_password($this->input->post("codigo")),
+            );
+            $query = $this->Estudiante_model->save_estudiante($estudiante);
+
+            if ($query == 1) {
             $result['resultado'] = true;
-        } else {
-            $result['resultado'] = false;
-        }
+            } else {
+                $result['resultado'] = false;
+            }
 
-        echo json_encode($result);
+            echo json_encode($result);
+        }
+        
 	}
     public function buscar_codigojoven(){
 
