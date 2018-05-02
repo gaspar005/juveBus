@@ -21,14 +21,18 @@
 	}
 
 </style>
-<div class="container" >
+
+<div id="start_loading_registro_operador" class="container" style="text-align: center">
+	<img src="<?php echo base_url('assets/img/loading.gif')?>">
+</div>
+<div class="container" id="showContentRegistroOperador" style="display: none">
 	<div class="row">
 		<div class="col-lg-12">
 				<div id="target-1" class="widget">
 		  				<div class="widget-content">
 
 							<form id="form_create_operador" >
-								<h4>Registro de Operador Hola </h4>
+								<h5 class="text-primary">Registro de Operador </h5>
 								<hr class="colorgraph">
 
 								<div class="col-sm-2 col-md-2 col-lg-3" >
@@ -98,4 +102,3 @@
   	</div>
 </div>
 	
-	      				

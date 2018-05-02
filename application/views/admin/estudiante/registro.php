@@ -39,7 +39,12 @@
 		margin-bottom: 20px;
 	}
 </style>
- <div class="main-inner">
+
+<div id="start_loading_registro" class="container" style="text-align: center">
+	<img src="<?php echo base_url('assets/img/loading.gif')?>">
+</div>
+
+ <div class="main-inner" id="showContentRegistro" style="display: none">
 	<div class="container" >
 	    <div class="row">	      	
 	      	<div class="col-lg-12">

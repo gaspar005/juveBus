@@ -54,9 +54,10 @@
     }
 
 </style>
-
-
- <div class="main-inner ">
+<div id="start_loading_lista_estudiante" class="container" style="text-align: center">
+	<img src="<?php echo base_url('assets/img/loading.gif')?>">
+</div>
+ <div class="main-inner" id="content_lista_estudiante" style="display: none">
  	<div class="container " >
  		<div class="row">
  			<div class="col-lg-12">

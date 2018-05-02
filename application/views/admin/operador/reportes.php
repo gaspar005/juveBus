@@ -29,8 +29,10 @@
 		}
 	
 	</style>
-	
-	 	<div class="container" >
+		<div id="start_loading_reporte_operador" class="container" style="text-align: center">
+			<img src="<?php echo base_url('assets/img/loading.gif')?>">
+		</div>
+	 	<div class="container" id="showContentReporteOperador" style="display: none">
 	 		<div class="row">
 	 			<div class="col-lg-12">
 					

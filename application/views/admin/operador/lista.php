@@ -29,7 +29,10 @@
         margin: 2px;
     }
 </style>
-<div class="main-inner ">
+<div id="start_loading_lista_operador" class="container" style="text-align: center">
+	<img src="<?php echo base_url('assets/img/loading.gif')?>">
+</div>
+<div class="main-inner " id="showContentListaOperadores" style="display: none">
 	<div class="container" >
 		<div class="row">
 			<div class="col-lg-12">

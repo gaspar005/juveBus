@@ -10,27 +10,36 @@ class Saldos_model extends CI_Model {
 
     public function buscar($status, $nombre, $ap_pat, $ap_mat = FALSE, $inicio = FALSE, $cantidadregistro = FALSE){
 
-    $this->db->select('cat_usuarios.id_usuario, cat_usuarios.codigo_joven, cat_usuarios.nombre, cat_usuarios.ap_pat, cat_usuarios.ap_mat, cat_usuarios.curp, cat_usuarios.fecha_nacimiento, cat_usuarios.lugar_nacimiento, cat_usuarios.lugar_residencia, cat_saldos.saldo');
-    $this->db->from('cat_usuarios');
-    $this->db->join('cat_saldos', 'cat_saldos.id_usuario =  cat_usuarios.id_usuario');
-    $this->db->where('cat_usuarios.status', $status);
-    $this->db->like('cat_usuarios.nombre', $nombre);
-    $this->db->like('cat_usuarios.ap_pat', $ap_pat);
+	$query = "SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) where cu.nombre LIKE '%".$nombre."%'  AND cu.ap_pat LIKE '%".$ap_pat."%' AND cu.status = $status ";
 
     if ($ap_mat != FALSE) {
-      $this->db->like('cat_usuarios.ap_mat', $ap_mat);
-
+    	$cardena = "AND cu.ap_mat LIKE '%".$ap_mat."%' ";
+    	$query = $query.$cardena;
     }
-  
+
     if ($inicio !== FALSE && $cantidadregistro !== FALSE) {
-      $this->db->limit($cantidadregistro,$inicio);
+    	$limite = "LIMIT $cantidadregistro";
+    	$query = $query.$limite;
     }
 
-    $consulta = $this->db->get();
-    var_dump($consulta->result());
-    return $consulta->result();
-  }
+    $consulta =  $this->db->query($query);;
 
+	if ($consulta->num_rows() > 0){
+		return $consulta->result();
+	}else{
+		return false;
+	}
+  }
+  public function inserta_saldo_estudiante($id_user_sistem, $id_usuario, $saldo,  $date, $now){
+		$recarga_saldo = array(
+			'id_user_sistem' => $id_user_sistem,
+			'id_usuario' => $id_usuario,
+			'importe' => $saldo,
+			'fecha' => $now,
+			'hora' => $date
+		);
+		return $this->db->insert('tab_recargas_de_saldo', $recarga_saldo);
+  }
 
 }
 

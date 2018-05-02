@@ -83,7 +83,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a href="javascript:;">Profile</a></li>
-              <li><a href="<?php echo base_url('Login_admin_ctrl/logout'); ?>">Cerrar Sesion</a></li>
+              <li><a href="<?php echo base_url('web/Login_admin_ctrl/logout'); ?>">Cerrar Sesion</a></li>
             </ul>
           </li>
         </ul>

@@ -52,7 +52,7 @@
 	
 	<div class="content clearfix">
 		
-		<form action="<?php echo base_url('Login_admin_ctrl/autentificarUser')?>"  method="post" >
+		<form action="<?php echo base_url('web/Login_admin_ctrl/autentificarUser')?>"  method="post" >
 
 			<h1 style="text-align: center;">SISTEMA JUVEBUS</h1>		
 			<div class="login-fields">
