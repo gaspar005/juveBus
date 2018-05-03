@@ -53,6 +53,13 @@ class Estudiante_model extends CI_Model {
         return $this->db->update('cat_usuarios', $estudiante);
     }
 
+    /* metodo que obtiene los datos del estudiante para mostrarlos en el pdf enviado a su correo */
+	public function get_estudiante_for_send_pdf($id_estudiante){
+			$this->db->select('codigo_joven, nombre, ap_pat, ap_mat, curp');
+			$this->db->where('id_usuario', $id_estudiante);
+		return $this->db->get('cat_usuarios')->result();
+	}
+
 }
 
 /* End of file Estudiante_model.php */

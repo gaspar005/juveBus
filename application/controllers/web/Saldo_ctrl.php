@@ -6,8 +6,10 @@ class Saldo_ctrl extends CI_Controller {
 	public function __construct(){
         parent::__construct();   
         $this->load->model('web/Saldos_model', 'saldos_model');
+		$this->load->model('web/Estudiante_model', 'Estudiante_model');
 		$this->load->model("Admin_model");
 		$this->load->helper('date');
+		$this->load->helper('url');
     }
 
 	public function saldo(){
@@ -52,6 +54,49 @@ class Saldo_ctrl extends CI_Controller {
 	}
    public function alta_saldo_estudiante(){
 
+	   ob_start();
+	   $id_usuario = $this->input->post("id");
+	   //$dato = 66;
+	   //**********************************************************************************
+	   //       PDF
+	   //**********************************************************************************
+
+	   $this->load->library('m_pdf');
+	   $mpdf = new \Mpdf\Mpdf([
+		   'mode' => 'utf-8',
+		   'margin_top' => 36,
+		   // 'margin_bottom' => 25,
+		   // 'margin_header' => 16,
+		   // 'margin_footer' => 13
+	   ]);
+
+	   /**************************************** Hoja de estilos ****************************************************/
+	   $stylesheet = file_get_contents('assets/css/bootstrap.min.css');
+	   $mpdf->WriteHTML($stylesheet, 1);
+
+	   /******************************************** head pdf ******************************************************/
+	   $data['DatosEstudiante'] = $this->Estudiante_model->get_estudiante_for_send_pdf($id_usuario);
+	   $head              = $this->load->view('admin/saldos/pdf/head', $data, true);
+	   $mpdf->SetHTMLHeader($head);
+
+	   // /***************************************** contenido pdf ****************************************************/
+	   $data2['DatosActuales'] = $this->saldos_model->body_info_send_email_estudiante($id_usuario);
+	   $data2['importe']       = $this->input->post("saldo");
+	   $html = $this->load->view('admin/saldos/pdf/contenido', $data2, true); //calcular el monto total del saldo insertado
+
+	   //**************************************** footer 1 ********************************************************
+	   $data3['pie_pagina'] = "";
+	   $footer = $this->load->view('admin/saldos/pdf/footer', $data3, true);
+	   $mpdf->SetHTMLFooter($footer);
+
+	   /****************************************** imprmir pagina ********************************************************/
+	   $mpdf->WriteHTML($html);
+	   ob_clean();
+	   $content = $mpdf->Output('', "I");
+	   //**********************************************************************************
+	   //    FIN   PDF
+	   //**********************************************************************************
+
 	   $currentDateTime = $this->getCurrentDateTime();
 	   $fecha = $currentDateTime['date'];
 	   $hora  = $currentDateTime['time'];
@@ -70,7 +115,38 @@ class Saldo_ctrl extends CI_Controller {
 
 	   $query = $this->Admin_model->altaSaldo($idUsuario,$importe,$dataRecargas,$currentDateTime);
 
-	   if ($query == 1) {
+	   $this->load->library('my_phpmailer');
+	   $result        = array();
+	   $textArea      = "Prueba de envio de email";
+	   //$email_dh      = $this->input->post("correo_dh");
+	   $email_med     = "franciscomigueljorge@gmail.com";
+	   $mail          = new PHPMailer;
+	   $mail->CharSet = "UTF-8";
+	   $mail->isSMTP(); // Set mailer to use SMTP
+	   $mail->Host       = 'mx1.hostinger.mx'; // Specify main and backup SMTP servers
+	   $mail->SMTPAuth   = true; // Enable SMTP authentication
+	   $mail->Username   = 'test_juvebus@go-to-school.juventudqroo.com'; // SMTP username
+	   $mail->Password   = 'HolaJorge'; // SMTP password
+	   $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+	   $mail->Port       = 587; // TCP port to connect to
+
+	   $mail->setFrom('miguelmaster60@gmail.com', 'IQJ');
+	   // $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+	   try {
+		   if ($email_med != false) {
+			   $mail->addAddress($email_med); // Name is optional
+		   }
+
+	   } catch (Exception $e) {
+
+	   }
+	   $mail->addStringAttachment($content, 'recargasaldo.pdf');
+	   $mail->isHTML(true); // Set email format to HTML
+
+	   $mail->Subject = 'LA RECARGA DE SU SALDO FUE EXITOSAMENTE';
+	   $mail->Body    = $textArea;
+
+	   if ($mail->send() && $query == 1) {
 		   $result['resultado'] = true;
 	   } else {
 		   $result['resultado'] = false;
@@ -78,7 +154,6 @@ class Saldo_ctrl extends CI_Controller {
 	   echo json_encode($result);
 
    }
-
 
 }
 
