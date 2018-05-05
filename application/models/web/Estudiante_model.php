@@ -54,10 +54,20 @@ class Estudiante_model extends CI_Model {
     }
 
     /* metodo que obtiene los datos del estudiante para mostrarlos en el pdf enviado a su correo */
-	public function get_estudiante_for_send_pdf($id_estudiante){
-			$this->db->select('codigo_joven, nombre, ap_pat, ap_mat, curp');
-			$this->db->where('id_usuario', $id_estudiante);
-		return $this->db->get('cat_usuarios')->result();
+	public function get_estudiante_header_email_pdf($id_estudiante){
+
+		$query = $this->db->query(" SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.correo,
+											cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo, rs.fecha, rs.hora, rs.id_h_pago
+									FROM cat_usuarios cu 
+										  inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
+										  inner join tab_recargas_de_saldo rs on (cu.id_usuario = rs.id_usuario) 
+									where cu.id_usuario = $id_estudiante ORDER BY rs.id_h_pago DESC LIMIT 1 ");
+		if ($query->num_rows() > 0){
+			return $query->result();
+		}else{
+			return false;
+		}
+
 	}
 
 }
