@@ -42,7 +42,7 @@ class Saldos_model extends CI_Model {
   }
   public function body_info_send_email_estudiante($id_estudiante){
 
-	$query = $this->db->query("SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) where cu.nombre = $id_estudiante ");
+	$query = $this->db->query("SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) where cu.id_usuario = $id_estudiante ");
 	  if ($query->num_rows() > 0){
 		  return $query->result();
 	  }else{

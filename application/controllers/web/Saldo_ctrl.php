@@ -54,50 +54,7 @@ class Saldo_ctrl extends CI_Controller {
 	}
    public function alta_saldo_estudiante(){
 
-	   ob_start();
-	   $id_usuario = $this->input->post("id");
-	   //$dato = 66;
-	   //**********************************************************************************
-	   //       PDF
-	   //**********************************************************************************
-
-	   $this->load->library('m_pdf');
-	   $mpdf = new \Mpdf\Mpdf([
-		   'mode' => 'utf-8',
-		   'margin_top' => 36,
-		   // 'margin_bottom' => 25,
-		   // 'margin_header' => 16,
-		   // 'margin_footer' => 13
-	   ]);
-
-	   /**************************************** Hoja de estilos ****************************************************/
-	   $stylesheet = file_get_contents('assets/css/bootstrap.min.css');
-	   $mpdf->WriteHTML($stylesheet, 1);
-
-	   /******************************************** head pdf ******************************************************/
-	   $data['DatosEstudiante'] = $this->Estudiante_model->get_estudiante_for_send_pdf($id_usuario);
-	   $head              = $this->load->view('admin/saldos/pdf/head', $data, true);
-	   $mpdf->SetHTMLHeader($head);
-
-	   // /***************************************** contenido pdf ****************************************************/
-	   $data2['DatosActuales'] = $this->saldos_model->body_info_send_email_estudiante($id_usuario);
-	   $data2['importe']       = $this->input->post("saldo");
-	   $html = $this->load->view('admin/saldos/pdf/contenido', $data2, true); //calcular el monto total del saldo insertado
-
-	   //**************************************** footer 1 ********************************************************
-	   $data3['pie_pagina'] = "";
-	   $footer = $this->load->view('admin/saldos/pdf/footer', $data3, true);
-	   $mpdf->SetHTMLFooter($footer);
-
-	   /****************************************** imprmir pagina ********************************************************/
-	   $mpdf->WriteHTML($html);
-	   ob_clean();
-	   $content = $mpdf->Output('', "I");
-	   //**********************************************************************************
-	   //    FIN   PDF
-	   //**********************************************************************************
-
-	   $currentDateTime = $this->getCurrentDateTime();
+   	   $currentDateTime = $this->getCurrentDateTime();
 	   $fecha = $currentDateTime['date'];
 	   $hora  = $currentDateTime['time'];
 	   $created = $currentDateTime['created'];
@@ -114,45 +71,92 @@ class Saldo_ctrl extends CI_Controller {
 	   );
 
 	   $query = $this->Admin_model->altaSaldo($idUsuario,$importe,$dataRecargas,$currentDateTime);
+	   $query1 = $this->crear_pdf_and_envio_correo($idUsuario, $importe);
 
-	   $this->load->library('my_phpmailer');
-	   $result        = array();
-	   $textArea      = "Prueba de envio de email";
-	   //$email_dh      = $this->input->post("correo_dh");
-	   $email_med     = "franciscomigueljorge@gmail.com";
-	   $mail          = new PHPMailer;
-	   $mail->CharSet = "UTF-8";
-	   $mail->isSMTP(); // Set mailer to use SMTP
-	   $mail->Host       = 'mx1.hostinger.mx'; // Specify main and backup SMTP servers
-	   $mail->SMTPAuth   = true; // Enable SMTP authentication
-	   $mail->Username   = 'test_juvebus@go-to-school.juventudqroo.com'; // SMTP username
-	   $mail->Password   = 'HolaJorge'; // SMTP password
-	   $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
-	   $mail->Port       = 587; // TCP port to connect to
-
-	   $mail->setFrom('miguelmaster60@gmail.com', 'IQJ');
-	   // $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
-	   try {
-		   if ($email_med != false) {
-			   $mail->addAddress($email_med); // Name is optional
-		   }
-
-	   } catch (Exception $e) {
-
-	   }
-	   $mail->addStringAttachment($content, 'recargasaldo.pdf');
-	   $mail->isHTML(true); // Set email format to HTML
-
-	   $mail->Subject = 'LA RECARGA DE SU SALDO FUE EXITOSAMENTE';
-	   $mail->Body    = $textArea;
-
-	   if ($mail->send() && $query == 1) {
+	   if ($query == 1 && $query1 == TRUE) {
 		   $result['resultado'] = true;
 	   } else {
 		   $result['resultado'] = false;
 	   }
 	   echo json_encode($result);
+   }
+	private function crear_pdf_and_envio_correo($id_usuario, $importe){
+	   ob_start();
+	   //**********************************************************************************
+	   //       PDF
+	   //**********************************************************************************
+	   require_once 'vendor/autoload.php';
+//	   $this->load->library('m_pdf');
+	   $mpdf = new \Mpdf\Mpdf([
+		   'mode' => 'utf-8',
+		   'margin_top' => 36,
+	   ]);
 
+	   $datosActuales = $this->Estudiante_model->get_estudiante_header_email_pdf($id_usuario);
+	   /**************************************** Hoja de estilos ****************************************************/
+	   $stylesheet = file_get_contents('assets/css/bootstrap.min.css');
+	   $mpdf->WriteHTML($stylesheet, 1);
+	   /******************************************** head pdf ******************************************************/
+	   $data['datosEstudiante'] = $datosActuales;
+	   $head              		= $this->load->view('admin/saldos/pdf/head', $data, true);
+	   $mpdf->SetHTMLHeader($head);
+	   // /***************************************** contenido pdf ****************************************************/
+	   $data2['datosActuales_Saldo'] = $datosActuales;
+	   $data2['importe']       = $importe;
+	   $html = $this->load->view('admin/saldos/pdf/contenido', $data2, true); //calcular el monto total del saldo insertado
+	   //**************************************** footer 1 ********************************************************
+	   $data3['pie_pagina'] = "";
+	   $footer = $this->load->view('admin/saldos/pdf/footer', $data3, true);
+	   $mpdf->SetHTMLFooter($footer);
+	   /****************************************** imprmir pagina ********************************************************/
+	   $mpdf->WriteHTML($html);
+	   ob_clean();
+	   $content = $mpdf->Output('Resultados.pdf', "I");
+	   //**********************************************************************************
+	   //    FIN   PDF
+	   //**********************************************************************************
+	   $textDescription =  ", <br> Tu recarga al servicio de JUVEBUS CHETUMAL fue Exitoso.";
+
+//
+/*		require_once '\.\..\..\PHPMailer\PHPMailer\PHPMailer';
+		require_once '\.\..\..\PHPMailer\PHPMailer\Exception';*/
+
+		$this->load->library('My_phpmailer');
+		$mail = new PHPMailer(true);
+		try {
+		   $mail->SMTPDebug = 2;
+		   $mail->isSMTP(); // Set mailer to use SMTP
+		   $textArea      = "Hola ".$datosActuales[0]->nombre.$textDescription;
+		   $email_estudiante   = $datosActuales[0]->correo;
+		   $mail          = new PHPMailer;
+		   $mail->CharSet = "UTF-8";
+
+		   $mail->Host       = 'mx1.hostinger.mx'; // Specify main and backup SMTP servers
+		   $mail->SMTPAuth   = true; // Enable SMTP authentication
+		   $mail->Username   = 'test_juvebus@go-to-school.juventudqroo.com'; // SMTP username
+		   $mail->Password   = 'HolaJorge'; // SMTP password
+		   $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
+		   $mail->Port       = 587; // TCP port to connect to
+
+		   $mail->setFrom('test_juvebus@go-to-school.juventudqroo.com', 'IQJ');
+		   // $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+		   try {
+			   if ($email_estudiante != false) {
+				   $mail->addAddress($email_estudiante); // Name is optional
+			   }
+		   } catch (Exception $e) {
+		   }
+		   $mail->addStringAttachment($content, 'recargasaldo_'.$datosActuales[0]->nombre.'.pdf');
+		   $mail->isHTML(true); // Set email format to HTML
+
+		   $mail->Subject = 'LA RECARGA DE SU SALDO FUE EXITOSAMENTE';
+		   $mail->Body    = $textArea;
+		   $mail->send();
+		   return TRUE;
+		} catch (Exception $e) {
+			echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+			return FALSE;
+		}
    }
 
 }
