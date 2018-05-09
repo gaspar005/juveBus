@@ -85,8 +85,8 @@ class Saldo_ctrl extends CI_Controller {
 	   //**********************************************************************************
 	   //       PDF
 	   //**********************************************************************************
-	   require_once 'vendor/autoload.php';
-//	   $this->load->library('m_pdf');
+	   //require_once 'vendor/autoload.php';
+	   $this->load->library('m_pdf');
 	   $mpdf = new \Mpdf\Mpdf([
 		   'mode' => 'utf-8',
 		   'margin_top' => 36,

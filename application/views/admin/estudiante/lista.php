@@ -102,9 +102,7 @@
                                                             <span class="fa fa-heart"></span> Habilitar
                                                         </button>
     	                                            <?php endif ?>
-    	                                            	<button  type="button" class="btn btn-info btn-rounded centrado" data-backdrop="static" data-keyboard="false"
-                                                                 onclick="editEstudiante('<?php echo $estudiante->id_usuario ?>','<?php echo $estudiante->codigo_joven ?>','<?php echo $estudiante->nombre?>','<?php echo $estudiante->ap_pat?>','<?php echo $estudiante->ap_mat ?>', '<?php echo $estudiante->curp ?>','<?php echo $estudiante->fecha_nacimiento ?>','<?php echo $estudiante->lugar_nacimiento ?>', '<?php echo $estudiante->lugar_residencia ?>')"
-                                                                 data-toggle="modal" data-target="#editarEstudiante">
+    	                                            	<button  type="button" class="btn btn-info btn-rounded centrado" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#editarEstudiante" onclick="editEstudiante('<?php echo $estudiante->id_usuario ?>','<?php echo $estudiante->codigo_joven ?>','<?php echo $estudiante->nombre?>','<?php echo $estudiante->ap_pat?>','<?php echo $estudiante->ap_mat ?>', '<?php echo $estudiante->curp ?>','<?php echo $estudiante->fecha_nacimiento ?>','<?php echo $estudiante->lugar_nacimiento ?>', '<?php echo $estudiante->lugar_residencia ?>')" >
     	                                            		<span class="glyphicon glyphicon-edit"></span> Editar
     	                                            	</button>
     							                </td>
