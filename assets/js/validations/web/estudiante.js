@@ -10,9 +10,144 @@ $(document).ready(function() {
 	$('input[type=text]').keyup(function() {
 		$(this).val($(this).val().toUpperCase());
 	});
+	/*AQUI SE VALIDAN LOS CAMPOS MANUALMENTE CON JS */
+
+	validation.init("form");
+	const ap_pat = document.querySelector('#ape_pateID');
+	ap_pat.addEventListener('keydown', verificarCampo);
+	const ap_mat = document.querySelector('#ape_matID');
+	ap_mat.addEventListener('keydown', verificarCampo);
+	const nombre = document.querySelector('#nombreID');
+	nombre.addEventListener('keydown', verificarCampo);
+	const curp = document.querySelector('#curpID');
+	curp.addEventListener('keydown', verificarCampo);
+	const anio = document.querySelector('#year_fecha_nacimientoEdit');
+	anio.addEventListener('keydown', verificarCampo);
+	const mes_val = document.querySelector('#mes_fecha_nacimientoEdit');
+	mes_val.addEventListener('keydown', verificarCampo);
+	const dia_val = document.querySelector('#dia_fecha_nacimientoEdit');
+	dia_val.addEventListener('keydown', verificarCampo);
+	const sexo = document.querySelector('#selectSexo');
+	sexo.addEventListener('keydown', verificarCampo);
+	const email = document.querySelector('#emailID');
+	email.addEventListener('keydown', verificarCampo);
+	const movil = document.querySelector('#telMovilID');
+	movil.addEventListener('keydown', verificarCampo);
+	const lugar_nacimiento = document.querySelector('#lugar_nacimientoID');
+	lugar_nacimiento.addEventListener('keydown', verificarCampo);
+	const localidad = document.querySelector('#localidadID');
+	localidad.addEventListener('keydown', verificarCampo);
+	const municipio = document.querySelector('#selectMunicipio');
+	municipio.addEventListener('keydown', verificarCampo);
+	const grado_estudio = document.querySelector('#selectGradoEstudio');
+	grado_estudio.addEventListener('onchange', verificarCampo);
+	const escuela = document.querySelector('#escuelaID');
+	escuela.addEventListener('keydown', verificarCampo);
+	const turno = document.querySelector('#turnoID');
+	turno.addEventListener('onchange', verificarCampo);
+
+	function verificarCampo(){
+		if (ap_pat.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (ap_mat.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (nombre.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (curp.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (anio.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (mes_val.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (dia_val.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (sexo.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (email.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (movil.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (lugar_nacimiento.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (localidad.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (municipio.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (grado_estudio.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (escuela.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+		if (turno.value === ""){
+			validation.init("form");
+			document.getElementById("btn_guardar_estudiante").disabled = true;
+		}else{
+			document.getElementById("btn_guardar_estudiante").disabled = false;
+		}
+	}
     inicalizarDataTable("example");
     
 });
+
 
 function cancelarRegistro() {
     $("#form_crear_estudiante")[0].reset();
@@ -20,69 +155,67 @@ function cancelarRegistro() {
 function cancelarEditRegistro() {
     $("#form_edit_estudiante")[0].reset();
 }
+function isNumberKey(evt) {
+	var charCode = (evt.which) ? evt.which : event.keyCode;
+	if (charCode > 31 && (charCode < 48 || charCode > 57 ) ){
+		return false;
+	}else{
+		return true;
+	}
+}
 function saveEstudent(){
-	$("#form_crear_estudiante").validate({
 
-        rules: {
-            codigo: { required: true},
-            nombre: { required: true, maxlength: 60 },
-            ape_pate: { required: true },
-            ape_mate: { required: true },
-            curp: { required: true },
-            year_fecha: { required: true },
-            mes_fecha: { required: true },
-            lugar_nacimiento: { required: true },
-            lugar_recidencia: { required: true },
-        },
-        messages: {
-            codigo: "Codigo es Necesarias",
-            nombre: "Nombre es Necesario",
-            ape_pate: "Apellido Paterno es Necesarias",
-            ape_mate: "Apellido Materno es Necesario",
-            curp: "CURP es Necesarias",
-            year_fecha: "*",
-            mes_fecha: "*",
-            lugar_nacimiento: "Lugar Nacimiento es Necesario",
-            lugar_recidencia: "Regicidencia Nacimiento es Necesario",
-           
-        },
-        submitHandler: function(){
+	if (validation.validate("form") === true){
 
-            var formData = new FormData($(".form_create_estudiante")[0]);
+		document.getElementById("btn_guardar_estudiante").disabled = false;
 
-            var l = $("#btn_guardar_estudiante").ladda();
-            l.ladda('start');
-            $.ajax({
-                type: "POST",
-                url:baseURL + "web/Estudiantes_ctrl/guardar_estudiante",
-                data: formData,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(respuesta) {
-                  var obj = JSON.parse(respuesta);
-                    if (obj.resultado === true) {
-                       //Limpiar formulario
-                       $("#form_crear_estudiante")[0].reset(); 
-                       //Mensaje de operación realizada con éxito
-                        setTimeout(function() {
-                            toastr.options = {
-                                closeButton: true,
-                                progressBar: true,
-                                showMethod: 'slideDown',
-                                timeOut: 4000
-                            };
-                        
-                        toastr.success('Los datos se guardaron correctamente', 'GUARDARON DATOS');                        
-                    }, 1300);
-                    }else{
-                      sweetAlert("EL TIPO DE ARCHIVO ES INVALIDO","INTENTE CON  OTRO","error");
-                    }
-                } 
-            });
-            l.ladda('stop');
-        }
-    });
+		$("#form_crear_estudiante").validate({
+
+			rules: {
+			},
+			messages: {
+			},
+			submitHandler: function(){
+
+				var formData = new FormData($(".form_create_estudiante")[0]);
+
+				var l = $("#btn_guardar_estudiante").ladda();
+				l.ladda('start');
+				$.ajax({
+					type: "POST",
+					url:baseURL + "web/Estudiantes_ctrl/guardar_estudiante",
+					data: formData,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(respuesta) {
+						var obj = JSON.parse(respuesta);
+						if (obj.resultado === true) {
+							//Limpiar formulario
+							$("#form_crear_estudiante")[0].reset();
+							//Mensaje de operación realizada con éxito
+							setTimeout(function() {
+								toastr.options = {
+									closeButton: true,
+									progressBar: true,
+									showMethod: 'slideDown',
+									timeOut: 4000
+								};
+								toastr.success('Los datos se guardaron correctamente', 'GUARDARON DATOS');
+							}, 1300);
+						}else{
+							sweetAlert("EL TIPO DE ARCHIVO ES INVALIDO","INTENTE CON  OTRO","error");
+						}
+					}
+				});
+				l.ladda('stop');
+			}
+		});
+	}else{
+		document.getElementById("btn_guardar_estudiante").disabled = true;
+	}
+	
+
 }
 function validarYear(year){
 
@@ -260,9 +393,11 @@ function validarCJ(codigoJ){
 
          if (obj.resultado == true) {
               sweetAlert("YA EXISTE CODIGO JOVEN","INTENTE CON  OTRO","error");
-
+			 $("#btn_guardar_estudiante").attr("disabled", true);
+			 $("#codigoEdit").css('border','red solid');
           }else{
-              $("#btn_guardar_edit_estudiante").attr("disabled", false);
+              $("#btn_guardar_estudiante").attr("disabled", false);
+			 $("#codigoEdit").css('border', '1px solid #ccc');
           }  
       }
     });
@@ -372,7 +507,7 @@ function procesaCurpEditar(curp){
         return true; //Validado
 }
 
-function editEstudiante(id, codigo_joven,nombre,paterno, materno, curp, nacimiento, lugarNacimiento, lugarRecidencia) {
+function editEstudiante(id, codigo_joven,nombre,paterno, materno, curp, nacimiento, lugarNacimiento, lugarRecidencia, correo) {
 
     document.getElementById("idEditar").innerHTML=id+"";
     document.getElementById("idEditar").value=id;
@@ -381,6 +516,7 @@ function editEstudiante(id, codigo_joven,nombre,paterno, materno, curp, nacimien
     document.getElementById("paternoEdit").value=paterno;
     document.getElementById("maternoEdit").value=materno;
     document.getElementById("curpEdit").value=curp;
+    document.getElementById("correoEditar").value=correo;
 
     // var fecha = nacimiento.split("-");
 
@@ -467,7 +603,8 @@ function saveEditEstudiante(){
             curp: { required: true },
             fecha_nacimiento: {required: true},
             lugar_nacimiento: { required: true },
-            lugar_recidencia: { required: true }
+            lugar_recidencia: { required: true },
+			correo: { required: true, email: true },
         },
         messages: {
             codigo: "Codigo es Necesarias",
@@ -477,13 +614,14 @@ function saveEditEstudiante(){
             curp: "CURP es Necesarias",
             fecha_nacimiento: "Fecha Nacimiento requirido",
             lugar_nacimiento: "Lugar Nacimiento es Necesario",
-            lugar_recidencia: "Regicidencia Nacimiento es Necesario"
+            lugar_recidencia: "Regicidencia Nacimiento es Necesario",
+			correo: "Correo es Necesario"
 
         },
         submitHandler: function(){
 
             var dataString = $("#form_edit_estudiante").serialize();
-            alert(dataString);
+
             var l = $("#btn_guardar_edit_estudiante").ladda();
             l.ladda('start');
             $.ajax({
@@ -497,7 +635,7 @@ function saveEditEstudiante(){
                         //Limpiar formulario
                         l.ladda('stop');
                         $("#form_edit_estudiante")[0].reset();
-                        $("#form_edit_estudiante").modal('hide');
+                        $("#editarEstudiante").modal('hide');
                         //Mensaje de operación realizada con éxito
                         setTimeout(function() {
                             toastr.options = {

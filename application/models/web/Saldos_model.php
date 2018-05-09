@@ -10,25 +10,41 @@ class Saldos_model extends CI_Model {
 
     public function buscar($status, $nombre, $ap_pat, $ap_mat = FALSE, $inicio = FALSE, $cantidadregistro = FALSE){
 
-	$query = "SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) where cu.nombre LIKE '%".$nombre."%'  AND cu.ap_pat LIKE '%".$ap_pat."%' AND cu.status = $status ";
+	$query = "SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo
+ 			  FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
+ 			  where cu.nombre LIKE '%".$nombre."%'  AND cu.ap_pat LIKE '%".$ap_pat."%' AND cu.status = $status ";
 
     if ($ap_mat != FALSE) {
     	$cardena = "AND cu.ap_mat LIKE '%".$ap_mat."%' ";
     	$query = $query.$cardena;
     }
 
-    if ($inicio !== FALSE && $cantidadregistro !== FALSE) {
+    if ($inicio != FALSE && $cantidadregistro != FALSE) {
     	$limite = "LIMIT $cantidadregistro";
     	$query = $query.$limite;
     }
 
-    $consulta =  $this->db->query($query);;
+    $consulta =  $this->db->query($query);
 
 	if ($consulta->num_rows() > 0){
 		return $consulta->result();
 	}else{
 		return false;
 	}
+  }
+  public function buscarCantidad($status, $nombre, $ap_pat, $ap_mat){
+	  $query = "SELECT count(cu.nombre) as totalregistros
+ 			    FROM cat_usuarios cu
+ 			    where cu.nombre LIKE '%".$nombre."%'  AND cu.ap_pat LIKE '%".$ap_pat."%' AND cu.status = $status ";
+
+	  $consulta =  $this->db->query($query);
+//	var_dump($consulta->result());
+	  if ($consulta->num_rows() > 0){
+		  return $consulta->result();
+	  }else{
+		  return false;
+	  }
+
   }
   public function inserta_saldo_estudiante($id_user_sistem, $id_usuario, $saldo,  $date, $now){
 		$recarga_saldo = array(

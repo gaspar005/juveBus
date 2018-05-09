@@ -38,7 +38,7 @@
     .dataTables_length{
         display: inline-block ;
     }
-    
+
     @media (max-width: 1600px) {
       div.dataTables_filter {
        display: inline-block;
@@ -73,6 +73,7 @@
     						                <th>Materno</th>
     						                <th>CURP</th>
     						                <th>Fecha Nacimiento</th>
+											<th>CORREO</th>
     						                <th>Lugar Nacimiento</th>
     						                <th>Lugar Recidencia</th>
     						                <th  style="text-align: center">Acciones</th>
@@ -88,6 +89,7 @@
     							                <td><label  id="ap_mat"><?php echo $estudiante->ap_mat ?></label></td>
     							                <td><label  id="curp"><?php echo $estudiante->curp ?></label></td>
     							                <td><label  id="fecha_nacimiento"><?php echo $estudiante->fecha_nacimiento?></label></td>
+    							                <td><label  id="correo"><?php echo $estudiante->correo?></label></td>
     							                <td><label  id="lugar_nacimiento"><?php echo $estudiante->lugar_nacimiento?></label></td>
     							                <td><label  id="lugar_residencia"><?php echo $estudiante->lugar_residencia?></label></td>
     							                <td style="text-align: center">
@@ -103,7 +105,7 @@
                                                         </button>
     	                                            <?php endif ?>
     	                                            	<button  type="button" class="btn btn-info btn-rounded centrado" data-backdrop="static" data-keyboard="false"
-                                                                 onclick="editEstudiante('<?php echo $estudiante->id_usuario ?>','<?php echo $estudiante->codigo_joven ?>','<?php echo $estudiante->nombre?>','<?php echo $estudiante->ap_pat?>','<?php echo $estudiante->ap_mat ?>', '<?php echo $estudiante->curp ?>','<?php echo $estudiante->fecha_nacimiento ?>','<?php echo $estudiante->lugar_nacimiento ?>', '<?php echo $estudiante->lugar_residencia ?>')"
+                                                                 onclick="editEstudiante('<?php echo $estudiante->id_usuario ?>','<?php echo $estudiante->codigo_joven ?>','<?php echo $estudiante->nombre?>','<?php echo $estudiante->ap_pat?>','<?php echo $estudiante->ap_mat ?>', '<?php echo $estudiante->curp ?>','<?php echo $estudiante->fecha_nacimiento ?>','<?php echo $estudiante->lugar_nacimiento ?>', '<?php echo $estudiante->lugar_residencia ?>', '<?php echo $estudiante->correo ?>')"
                                                                  data-toggle="modal" data-target="#editarEstudiante">
     	                                            		<span class="glyphicon glyphicon-edit"></span> Editar
     	                                            	</button>
@@ -161,19 +163,23 @@
                                 <label for="fecha_nacimiento">Fecha Nacimiento</label>
                                 <input type="date" id="fecha_nacimientoEdit" class="form-control" name="fecha_nacimiento" tabindex="6">
                             </div>
-                            <div class="col-sm-3 col-md-3 col-lg-3" >
-                                <label for="lugar_nacimiento">Lugar Nacimiento</label>
-                                <input type="text" name="lugar_nacimiento" class="form-control" id="lugar_nacimientoEdit"  tabindex="7">
+							<div class="col-sm-3 col-md-3 col-lg-4" >
+                                <label for="fecha_nacimiento">Correo</label>
+                                <input type="text" id="correoEditar" class="form-control" name="correo" tabindex="7">
                             </div>
-                            <div class="col-sm-3 col-md-3 col-lg-3" >
+                            <div class="col-sm-3 col-md-3 col-lg-4" >
+                                <label for="lugar_nacimiento">Lugar Nacimiento</label>
+                                <input type="text" name="lugar_nacimiento" class="form-control" id="lugar_nacimientoEdit"  tabindex="8">
+                            </div>
+                            <div class="col-sm-3 col-md-3 col-lg-4" >
                                 <label for="lugar_recidencia">Lugar Recidencia</label>
-                                <input type="text" name="lugar_recidencia" class="form-control" id="lugar_recidenciaEdit" tabindex="8">
+                                <input type="text" name="lugar_recidencia" class="form-control" id="lugar_recidenciaEdit" tabindex="9">
                             </div>
 
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true" onclick="cancelarEditRegistro();" >Close</button>
+                <div class="modal-footer">'
+                    <button type="button" class="btn" data-dismiss="modal" aria-hidden="true" onclick="cancelarEditRegistro();" >Cancelar</button>
                     <button type="submit" id="btn_guardar_edit_estudiante"  class="ladda-button btn btn-primary" data-style="expand-left" tabindex="10" onclick="saveEditEstudiante()" >Guardar Cambios</button>
                 </div>
             </form>

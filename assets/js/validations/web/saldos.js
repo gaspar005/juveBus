@@ -2,6 +2,7 @@ $(document).ready(function() {
 	$("#start_loading").css('display', 'none');
 	$("#showContent").css('display', 'block');
 
+
   // mostrarDatos("",1,7);
 
   // $("input[name=busqueda]").keyup(function(){
@@ -23,6 +24,15 @@ $(document).ready(function() {
   //   valorBuscar = $("input[name=busqueda]").val();
   //   mostrarDatos(valorBuscar,1,valoroption);
   // });
+
+	//PRECIONAR ENTER AUTOMATICAMENTE
+	$('input[type=text]').keyup(function(e){
+		if(e.keyCode == 13)
+		{
+			$(this).trigger("enterKey");
+			buscaEstudiante();
+		}
+	});
 
 	/* CONVERTIR TEXTO EN MAYUSCULAS */
 	$('input[type=text]').keyup(function() {
@@ -230,6 +240,12 @@ function editar_saldo(){
 	$("#switchCancelarSaldoAgregado").css('display', 'none');
 
 }
+
+function printDetalleExtraudinaria(){
+	var id = $("#idEditar").val();
+	var saldo = $("#saldoRecarga").val();
+	window.open(baseURL + "web/saldo_ctrl/pdf_por_empleadoExtraordinario?id="+ id +"&saldo="+saldo);
+}
 function saveAltaSaldo() {
 
 	$("#form_alta_saldo").validate({
@@ -283,7 +299,10 @@ function saveAltaSaldo() {
 									window.location.href = baseURL + "saldo-recarga";
 								}, 1300);
 							}, 1300);
-						}
+						}else {
+						l.ladda('stop');
+						swal("Error al enviar el correo!", "Porfavor Intente de nuevo", "error");
+					}
 
 					},
 					error: function (xhr, ajaxOptions, thrownError) {

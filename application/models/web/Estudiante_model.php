@@ -7,7 +7,20 @@ class Estudiante_model extends CI_Model {
       parent::__construct();
       $this->load->database();
     }
+	public function get_municipios(){
 
+		$this->db->select('*');
+		$this->db->from('cat_municipios');
+		return $this->db->get()->result();
+
+	}
+	public function get_grado_estudios(){
+
+		$this->db->select('*');
+		$this->db->from('cat_grado_estudio');
+		return $this->db->get()->result();
+
+	}
     public function get_list_estudiantes(){
 
         $this->db->select('*');
@@ -27,8 +40,10 @@ class Estudiante_model extends CI_Model {
     }
     public function existeCodigoJoven($cj){
 
-	    $query = $this->db->query("SELECT cat_usuarios.codigo_joven FROM cat_usuarios WHERE cat_usuarios.codigo_joven = '".$cj."' ");    
-	  
+	  	$this->db->select('codigo_joven');
+	  	$this->db->from('cat_usuarios');
+	  	$this->db->where('codigo_joven', $cj);
+		$query = $this->db->get();
 	    if ($query->num_rows() > 0){
 	       return  $query->result();
 	    }else{
