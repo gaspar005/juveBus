@@ -97,7 +97,6 @@
 				<div class="modal-body">
 					<input type="hidden" name="id" id="idEditar" value="">
 					<div class="row">
-
 						<div class="col-lg-3" id="jovenEstu">
 						</div>
 						<div class="col-lg-3" id="nombreEstu">

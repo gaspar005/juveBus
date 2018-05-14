@@ -36,24 +36,80 @@ class Operador_ctrl extends CI_Controller {
   }
   public function guardar_operador(){
 
-    $fecha = $this->input->post("year_fecha").'-'.$this->input->post("mes_fecha").'-'.$this->input->post("dia_fecha");
-    $operador = array(
-                'rfc' => $this->input->post("rfc"), 
-                'nombre' => $this->input->post("nombre"), 
-                'ap_pat' => $this->input->post("ap_pat"), 
-                'ap_mat' => $this->input->post("ap_mat"), 
-                'fecha_nacimiento' => $fecha,
-                'status' => 1,
-                'id_role' => 2,              
-                'password' => $this->bcrypt->hash_password($this->input->post("rfc"))
-    );
-    $query = $this->Operador_model->save_operador($operador);
-    if ($query == 1) {
-        $result['resultado'] = true;
-    } else {
-        $result['resultado'] = false;
-    }
-    echo json_encode($result);
+	  if (isset($_FILES["img_operador"]["name"]) && $_FILES["img_operador"]["name"] != null  ) {
+
+		  $type = explode('.', $_FILES["img_operador"]["name"]);
+		  $type = $type[count($type) - 1];
+
+		  date_default_timezone_set('America/Cancun');
+
+		  $date = date('H:i:s');
+		  $now = date('Y-m-d');
+
+		  $nombreEntero = $_FILES["img_operador"]["name"];
+
+		  $nombre = explode(".", $nombreEntero);
+
+		  $url = "./../assets/img/operador/perfil" . $nombre[0] . '_' . str_replace(':', '-', $date) . '_' . $now . '.' . $type;
+		  if (in_array($type, array("jpg", "png", "jpeg"))) {
+			  if (is_uploaded_file($_FILES["img_operador"]["tmp_name"])) {
+				  move_uploaded_file($_FILES["img_operador"]["tmp_name"], $url);
+
+				  $fecha = $this->input->post("year_fecha") . '-' . $this->input->post("mes_fecha") . '-' . $this->input->post("dia_fecha");
+				  $operador = array(
+					  'rfc' => $this->input->post("rfc"),
+					  'nombre' => $this->input->post("nombre"),
+					  'ap_pat' => $this->input->post("ap_pat"),
+					  'ap_mat' => $this->input->post("ap_mat"),
+					  'telefono' => $this->input->post("telefono"),
+					  'colonia' => $this->input->post("colonia"),
+					  'domicilio' => $this->input->post("domicilio"),
+					  'cruzamientos' => $this->input->post("cruzamientos"),
+					  'avatar'  => $nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type,
+					  'fecha_nacimiento' => $fecha,
+					  'status' => 1,
+					  'id_role' => 2,
+					  'password' => $this->bcrypt->hash_password($this->input->post("rfc"))
+				  );
+				  $query = $this->Operador_model->save_operador($operador);
+				  if ($query == 1) {
+					  $result['resultado'] = true;
+				  } else {
+					  $result['resultado'] = false;
+				  }
+				  echo json_encode($result);
+			  }
+		  } else {
+			  $result['resultado'] = false;
+			  echo json_encode($result);
+		  }
+	  }else {
+
+		  $fecha = $this->input->post("year_fecha") . '-' . $this->input->post("mes_fecha") . '-' . $this->input->post("dia_fecha");
+
+		  $operador = array(
+			  'rfc' => $this->input->post("rfc"),
+			  'nombre' => $this->input->post("nombre"),
+			  'ap_pat' => $this->input->post("ap_pat"),
+			  'ap_mat' => $this->input->post("ap_mat"),
+			  'telefono' => $this->input->post("telefono"),
+			  'colonia' => $this->input->post("colonia"),
+			  'domicilio' => $this->input->post("domicilio"),
+			  'cruzamientos' => $this->input->post("cruzamientos"),
+			  'fecha_nacimiento' => $fecha,
+			  'status' => 1,
+			  'id_role' => 2,
+			  'password' => $this->bcrypt->hash_password($this->input->post("rfc"))
+		  );
+
+		  $query = $this->Operador_model->save_operador($operador);
+		  if ($query == 1) {
+			  $result['resultado'] = true;
+		  } else {
+			  $result['resultado'] = false;
+		  }
+		  echo json_encode($result);
+	  }
   }
 
   // MODULO DE REGISTRO DE OPERADORES

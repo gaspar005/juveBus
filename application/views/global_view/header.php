@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/logo/juveBUS_512.png');?>" />
-	<title><?php if ( isset($ruta1) ) { echo $ruta1; } ?>  </title>
+  <title><?php if ( isset($ruta1) ) { echo $ruta1; } ?>  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <!-- DataTable --> 
-	<!-- <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>"> -->
+  <!-- DataTable -->
+  <!-- <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>"> -->
   <!-- <link href="<?php echo base_url('assets/css/plugins/dataTables/datatables.min.css'); ?>" rel="stylesheet"> -->
+  <link href="<?php echo base_url('assets/css/plugins/validator/validation.min.css')?>" rel="stylesheet">
+  <script async defer src="<?php echo base_url('assets/js/plugins/validator/buttons.js'); ?>"></script>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/plugins/dataTables/bootstrap.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/plugins/dataTables/dataTables.bootstrap.min.css');?>">
   <link href="<?php echo base_url('assets/css/plugins/dataTables/datatables.min.css'); ?>" rel="stylesheet">
 
   <!-- Bootstrap themplate-->
-  <!-- <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet"> -->
-  <link href="<?php echo base_url('assets/css/bootstrap-responsive.min.css'); ?>" rel="stylesheet"> 
+ <!-- <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+  <link href="<?php echo base_url('assets/css/bootstrap-responsive.min.css'); ?>" rel="stylesheet"> -->
   
   <!-- Bootstrap puro original 100% real no fake -->
-  <link href="<?php echo base_url('assets/css/bootstrap-real.min.css'); ?>" rel="stylesheet">
-  <link href="<?php echo base_url('assets/css/bootstrap-real.css'); ?>" rel="stylesheet">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
   <!-- Tipo grafia para la letra -->
 	<link href="<?php echo base_url('assets/css/tipografias.css'); ?>" rel="stylesheet">
@@ -48,51 +48,46 @@
   
   <!-- DATATIMEPIKER -->
   <link href="<?php echo base_url('assets/css/plugins/datatimepicker/bootstrap-datetimepicker.css'); ?>" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet"/> <!--NO QUITAR AFECTA EL DISEÑO DE CALENDARIO -->
+  <link href="<?php echo base_url('assets/css/plugins/datatimepicker/jquery-ui.css'); ?>" rel="stylesheet"/> <!--NO QUITAR AFECTA EL DISEÑO DE CALENDARIO -->
 
   <script>
-      var baseURL = "<?php echo base_url(); ?>"
-  </script>
+      var baseURL = "<?php echo base_url(); ?>";
 
+  </script>
+	<style>
+		.dropdown-togglee:hover{ background: #1b6d85 !important; }
+	</style>
 </head>
 <body>
-<style>
-/*  .navbar .nav>li>a {
-    color: #274690 !important;    
-    font-size: 14px;
-  }*/
-</style>
 
-<nav class="navbar navbar-inverse" style="background: #00BA8B; margin-bottom: 0; border: 0;">
-  <div class="container-fluid">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">        
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" style="color: white;" href="#"> <?php if ( isset($ruta) ) { echo $ruta; } ?> </a>
-      </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
-               aria-expanded="false"> <?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellidos'); ?> 
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="javascript:;">Profile</a></li>
-              <li><a href="<?php echo base_url('web/Login_admin_ctrl/logout'); ?>">Cerrar Sesion</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<nav class="navbar navbar-fixed-top" style="background:#00BA8B; margin-bottom: 0; border: 0;">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" style="color: white;" href="#"> <?php if ( isset($ruta) ) { echo $ruta; } ?> </a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right" >
+			  <li class="dropdown" >
+				<a href="#" class="dropdown-togglee" data-toggle="dropdown" role="button" aria-haspopup="true" id="salir_login"
+				   aria-expanded="false"> <?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellidos'); ?>
+				  <span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+				  <li><a href="javascript:;">Profile</a></li>
+				  <li><a href="<?php echo base_url('web/Login_admin_ctrl/logout'); ?>">Cerrar Sesion</a></li>
+				</ul>
+			  </li>
+			</ul>
+		</div>
+	</div>
 </nav>
 
-<div class="subnavbar">
+<div class="subnavbar" style="height: 40px;">
   <div class="subnavbar-inner">
     <div class="container">
       <ul class="mainnav">

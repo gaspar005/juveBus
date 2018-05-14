@@ -46,7 +46,17 @@
     						                <th>Apellidos</th>
     						                <th>Materno</th>
     						                <th>RFC</th>
-    						                <th>Fecha Nacimiento</th>    						                
+    						                <th>RFC2</th>
+    						                <th>RFC3</th>
+    						                <th>RFC4</th>
+    						                <th>RFC5</th>
+    						                <th>RFC6</th>
+    						                <th>RFC6</th>
+    						                <th>RFC7</th>
+    						                <th>RFC8</th>
+    						                <th>RFC9</th>
+    						                <th>RFC10</th>
+    						                <th>Fecha Nacimiento</th>
     						                <th  style="text-align: center">Acciones</th>
     						            </tr>
     						        </thead>
@@ -58,7 +68,18 @@
     							                <td><label  id="ap_pat"><?php echo $operador->ap_pat ?></label></td>
     							                <td><label  id="ap_mat"><?php echo $operador->ap_mat ?></label></td>
     							                <td><label  id="rfc"><?php echo $operador->rfc ?></label></td>
-    							                <td><label  id="fecha_nacimiento"><?php echo $operador->fecha_nacimiento?></label></td>    							              
+    							                <td><label  id="rfc">holamundo1</label></td>
+    							                <td><label  id="rfc">holamundo2</label></td>
+    							                <td><label  id="rfc">holamundo3</label></td>
+    							                <td><label  id="rfc">holamundo4</label></td>
+    							                <td><label  id="rfc">holamundo5</label></td>
+    							                <td><label  id="rfc">holamundo6</label></td>
+    							                <td><label  id="rfc">holamundo7</label></td>
+    							                <td><label  id="rfc">holamundo8</label></td>
+    							                <td><label  id="rfc">holamundo9</label></td>
+    							                <td><label  id="rfc">holamundo10</label></td>
+
+    							                <td><label  id="fecha_nacimiento"><?php echo $operador->fecha_nacimiento?></label></td>
     							                <td style="text-align: center">
     							                	<?php if ($operador->status == 1): ?>
     	                                            	<button type="button" class="btn btn-danger btn-rounded centrado"

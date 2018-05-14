@@ -7,19 +7,32 @@ class Estudiante_model extends CI_Model {
       parent::__construct();
       $this->load->database();
     }
+	public function get_municipios(){
 
+		$this->db->select('*');
+		$this->db->from('cat_municipios');
+		return $this->db->get()->result();
+
+	}
+	public function get_grado_estudios(){
+
+		$this->db->select('*');
+		$this->db->from('cat_grado_estudio');
+		return $this->db->get()->result();
+
+	}
     public function get_list_estudiantes(){
 
-        $this->db->select('*');
-        $this->db->from('cat_usuarios');
-        $query = $this->db->get();
-
+        $query = $this->db->query("select user.id_usuario,user.codigo_joven, user.nombre,user.ap_pat, user.ap_mat,  user.curp, user.fecha_nacimiento, user.edad,user.sexo,user.correo,user.tel_casa,user.tel_celular,user.lugar_nacimiento,
+      							    user.localidad, muni.nombre as municipio, user.colonia, user.domicilio, user.cruzamiento_domicilio, gtds.nombre as grado_estudio, user.escuela, user.turno_horario,
+      								user.lengua_indigena, user.status
+									from cat_usuarios user, cat_grado_estudio gtds, cat_municipios muni
+									where  muni.id_municipio = user.id_municipio and gtds.id_grado_estudio = user.id_grado_estudio");
         if ($query->num_rows() > 0){
            return $query->result();
         }else{
            return false;
         }
-
     }   
 
     public function save_estudiante($estudiante){
@@ -27,8 +40,10 @@ class Estudiante_model extends CI_Model {
     }
     public function existeCodigoJoven($cj){
 
-	    $query = $this->db->query("SELECT cat_usuarios.codigo_joven FROM cat_usuarios WHERE cat_usuarios.codigo_joven = '".$cj."' ");    
-	  
+	  	$this->db->select('codigo_joven');
+	  	$this->db->from('cat_usuarios');
+	  	$this->db->where('codigo_joven', $cj);
+		$query = $this->db->get();
 	    if ($query->num_rows() > 0){
 	       return  $query->result();
 	    }else{
