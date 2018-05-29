@@ -10,7 +10,7 @@
 </style>
 
 <div id="start_loading" class="container" style="text-align: center">
-	<img src="<?php echo base_url('assets/img/loading.gif')?>">
+	<img src="<?php echo base_url('assets/imgs/loading.gif')?>">
 </div>
 
 <div class="main-inner " id="showContent" style="display: none">
@@ -44,9 +44,6 @@
 									</form>
 								</div>
 							</div>
-					          <!-- <div class="col-xs-6 col-md-4" style="background: red">
-					            <input type="text" class="form-control" id="searchTerm" name="busqueda" placeholder="BUSCAR ESTUDIANTE POR CODIGO JOVEN">
-					          </div> -->
 						    <br>
 							<div class="panel panel-primary" id="showNoneTable" style="display: none">
 					          	<div class="panel-heading text-center"  style="font-family: Arial; font-size: 14px; padding: 0">ESTUDIANTES ENCONTRADOS</div>
@@ -77,7 +74,6 @@
 					            </div>
 					        </div>
 					    </div>
-
 	                </div>
 	            </div>    		
 	        </div>    

@@ -4,13 +4,13 @@ class Estudiantes_ctrl extends CI_Controller {
 
 	public function __construct(){
         parent::__construct();
+		$this->load->library('pagination');
         $this->load->model('web/Estudiante_model', 'Estudiante_model');
         $this->load->library('bcrypt');
         $this->load->library('upload');
     }
-/*
-COMIENZA LA CONSULTA DEL MODULO DE REGISTRO DE ESTUDIANTES
-*/
+/*COMIENZA LA CONSULTA DEL MODULO DE REGISTRO DE ESTUDIANTES*/
+
 	public function index_estudiantes(){
 
 		$dato['active'] = "estudiante"; 
@@ -41,7 +41,7 @@ COMIENZA LA CONSULTA DEL MODULO DE REGISTRO DE ESTUDIANTES
 
             $nombre = explode(".", $nombreEntero);
 
-            $url = "./profiles/".$nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type;
+            $url = "./assets/imgs/usuarios/profil/".$nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type;
 			$actualYear = date('Y');
 			$estudianteYear = $this->input->post("year_fecha");
 			$edad = $actualYear - $estudianteYear;
@@ -155,11 +155,24 @@ COMIENZA LA CONSULTA DEL MODULO DE REGISTRO DE ESTUDIANTES
         echo json_encode($result);  
     }
 
-/*
-COMIENZA LA CONSULTA DEL MODULO DE LISTA DE ESTUDIANTES
-*/
 
-    public function lista_estudiantes(){
+	/*COMIENZA LA CONSULTA DEL MODULO DE LISTA DE ESTUDIANTES*/
+	public function mostrar_lista_estudiante(){
+
+		$cantidad = $this->input->post("cantidad");
+
+		$data = array(
+
+			"estudiante" => $this->Estudiante_model->buscarEstudiantes($cantidad),
+			"totalregistros" => $this->Estudiante_model->cantidadEstudiantes(),
+			"cantidad" =>$cantidad
+
+		);
+
+		echo json_encode($data);
+
+	}
+    public function lista_estudiantes($nropagina = FALSE){
 
         //DATOS PARA INDICAR EN QUE MODULO ESTA EL USUARIO O ADMINISTRADOR SE VAN AL HEADER
         $dato['active'] = "estudiante"; 
@@ -167,13 +180,109 @@ COMIENZA LA CONSULTA DEL MODULO DE LISTA DE ESTUDIANTES
         $dato['ruta1'] = "Lista Estudiantes";
         $dato['ruta'] = "Modulo Estudiante / Lista";
 
-        //DATOS QUE SE VAN A LA VISTA
-        $vista['estudiantes'] = $this->Estudiante_model->get_list_estudiantes();
+		$inicio = 0;
+		$mostrarpor = 5;
+		$buscador = "";
+		if ($this->session->userdata("cantidad")) {
+			$mostrarpor =  $this->session->userdata("cantidad");
+		}
+		if ($nropagina) {
+			$inicio = ($nropagina - 1) * $mostrarpor;
+		}
 
-        $this->load->view('global_view/header', $dato);
-        $this->load->view('admin/estudiante/lista', $vista);
-        $this->load->view('global_view/foother');    
+		if ($this->session->userdata("busqueda_codigo_joven")){
+
+			$this->session->unset_userdata('nombre_busqueda');
+			$this->session->unset_userdata('paterno_busqueda');
+
+			$buscador = $this->session->userdata("busqueda_codigo_joven");
+			$canditad_registro = $this->Estudiante_model->cantidadEstudiantes($buscador);
+			$config['total_rows'] = $canditad_registro[0]->totalregistros;
+		}
+		elseif ($this->session->userdata("nombre_busqueda") && $this->session->userdata("paterno_busqueda")) {
+			$this->session->unset_userdata('busqueda_codigo_joven');
+			$buscador_nombre = $this->session->userdata("nombre_busqueda");
+			$buscador_apelldo = $this->session->userdata("paterno_busqueda");
+			$canditad_registroNP = $this->Estudiante_model->cantidadEstudiantesNP($buscador_nombre,$buscador_apelldo);
+			$config['total_rows'] = $canditad_registroNP[0]->totalregistros;
+		}else{
+			$canditad_registroFree = $this->Estudiante_model->cantidadEstudiantesFree($buscador);
+			$config['total_rows']  = $canditad_registroFree[0]->totalregistros;
+		}
+		$config['base_url'] = base_url()."lista-estudiantes/pagina/";
+
+		$config['per_page'] = $mostrarpor;
+		$config['uri_segment'] = 3;
+		$config['num_links'] = 2;
+		$config['use_page_numbers'] = TRUE;
+		$config['first_url'] = base_url()."lista-estudiantes";
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='javascript:void(0)'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
+		$this->pagination->initialize($config);
+		if ($this->session->userdata("busqueda_codigo_joven") ){
+			$data = array(
+				"estudiantes" => $this->Estudiante_model->buscar($buscador,$inicio,$mostrarpor)
+			);
+		}
+		elseif ($this->session->userdata("nombre_busqueda") && $this->session->userdata("paterno_busqueda") ){
+			$data = array(
+				"estudiantes" => $this->Estudiante_model->buscarNomAp($buscador_nombre,$buscador_apelldo,$inicio,$mostrarpor)
+			);
+		}else{
+			$data = array(
+				"estudiantes" => $this->Estudiante_model->buscarFree($inicio,$mostrarpor)
+			);
+		}
+
+		$this->load->view('global_view/header', $dato);
+		$this->load->view('admin/estudiante/lista', $data);
+		$this->load->view('global_view/foother');
+
     }
+
+	public function mostrar(){
+		$this->session->unset_userdata('busqueda_codigo_joven');
+		$this->session->unset_userdata('nombre_busqueda');
+		$this->session->unset_userdata('paterno_busqueda');
+		redirect(base_url()."lista-estudiantes");
+	}
+	public function delete_sessionNameApe(){
+		$this->session->unset_userdata('nombre_busqueda');
+		$this->session->unset_userdata('paterno_busqueda');
+	}
+	public function delete_sessionCJ(){
+		$this->session->unset_userdata('busqueda_codigo_joven');
+	}
+
+	public function busqueda(){
+
+		$this->session->set_userdata("busqueda_codigo_joven",$this->input->post("busqueda"));
+		redirect(base_url()."lista-estudiantes");
+
+	}
+	public function busqueda_nombres(){
+
+		$this->session->set_userdata("nombre_busqueda",$this->input->post("nombre"));
+		$this->session->set_userdata("paterno_busqueda",$this->input->post("paterno"));
+		redirect(base_url()."lista-estudiantes");
+
+	}
+	public function cantidad(){
+		$this->session->set_userdata("cantidad",$this->input->post("cantidad"));
+	}
+
     public function obtener_municipios(){
 		$query = $this->Estudiante_model->get_municipios();
 		echo json_encode($query);

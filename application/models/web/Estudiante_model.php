@@ -33,8 +33,101 @@ class Estudiante_model extends CI_Model {
         }else{
            return false;
         }
-    }   
+    }
 
+
+//    OBTIENE TODA LA LISTA DE ESTUDIANTES
+	public function cantidadEstudiantesFree(){
+		$query = "SELECT count(cu.nombre) as totalregistros
+ 			    FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario)
+ 			    inner join cat_municipios cm on (cu.id_municipio = cm.id_municipio) 
+					 inner join cat_grado_estudio cgs on (cu.id_grado_estudio = cgs.id_grado_estudio) ";
+		$consulta =  $this->db->query($query);
+
+		if ($consulta->num_rows() > 0){
+			return $consulta->result();
+		}else{
+			return false;
+		}
+	}
+	public function buscarFree($inicio,$mostrarpor){
+		$query = "SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento,sd.saldo, cu.curp, cu.sexo, cu.edad,cu.correo, cu.status,
+					cu.colonia,cu.cruzamiento_domicilio,cu.domicilio, cu.lengua_indigena,cu.lugar_nacimiento,cu.localidad,cu.turno_horario,cu.tel_celular,cu.lugar_residencia,
+					  cu.escuela,cu.tel_casa,
+					  cm.nombre as municipio, 
+					  cgs.nombre as grado_estudio
+					FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
+					 inner join cat_municipios cm on (cu.id_municipio = cm.id_municipio) 
+					 inner join cat_grado_estudio cgs on (cu.id_grado_estudio = cgs.id_grado_estudio)  LIMIT $inicio, $mostrarpor ";
+		$consulta =  $this->db->query($query);
+
+		if ($consulta->num_rows() > 0){
+			return $consulta->result();
+		}else{
+			return false;
+		}
+	}
+
+	public function buscar($buscar,$inicio = FALSE, $mostrarpor = FALSE){
+		$query = "SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento,sd.saldo, cu.curp, cu.sexo, cu.edad,cu.correo, cu.status,
+					cu.colonia,cu.cruzamiento_domicilio,cu.domicilio, cu.lengua_indigena,cu.lugar_nacimiento,cu.localidad,cu.turno_horario,cu.tel_celular,cu.lugar_residencia,
+					  cu.escuela,cu.tel_casa,
+					  cm.nombre as municipio, 
+					  cgs.nombre as grado_estudio
+					FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
+					 inner join cat_municipios cm on (cu.id_municipio = cm.id_municipio) 
+					 inner join cat_grado_estudio cgs on (cu.id_grado_estudio = cgs.id_grado_estudio) 
+ 			  where cu.codigo_joven COLLATE utf8_unicode_ci LIKE '%".$buscar."%' LIMIT $inicio, $mostrarpor  ";
+
+		$consulta =  $this->db->query($query);
+
+		if ($consulta->num_rows() > 0){
+			return $consulta->result();
+		}else{
+			return false;
+		}
+    }
+    public function buscarNomAp($buscador_nombre,$buscador_apelldo,$inicio = FALSE, $mostrarpor = FALSE){
+		$query = "SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento,sd.saldo, cu.curp, cu.sexo, cu.edad,cu.correo, cu.status,
+					cu.colonia,cu.cruzamiento_domicilio,cu.domicilio, cu.lengua_indigena,cu.lugar_nacimiento,cu.localidad,cu.turno_horario,cu.tel_celular,cu.lugar_residencia,
+					  cu.escuela,cu.tel_casa,
+					  cm.nombre as municipio, 
+					  cgs.nombre as grado_estudio
+					FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
+					 inner join cat_municipios cm on (cu.id_municipio = cm.id_municipio) 
+					 inner join cat_grado_estudio cgs on (cu.id_grado_estudio = cgs.id_grado_estudio) 
+ 			  where cu.nombre  COLLATE utf8_unicode_ci LIKE '%".$buscador_nombre."%'  or cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$buscador_apelldo."%' OR cu.ap_mat COLLATE utf8_unicode_ci LIKE '%".$buscador_apelldo."%' LIMIT $inicio, $mostrarpor  ";
+
+		$consulta =  $this->db->query($query);
+
+		if ($consulta->num_rows() > 0){
+			return $consulta->result();
+		}else{
+			return false;
+		}
+    }
+    public function cantidadEstudiantesNP($buscador_nombre = FALSE, $buscador_apelldo = FALSE ){
+		$query = "SELECT count(cu.nombre) as totalregistros
+ 			    FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) where cu.nombre  COLLATE utf8_unicode_ci LIKE '%".$buscador_nombre."%'  or cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$buscador_apelldo."%' OR cu.ap_mat COLLATE utf8_unicode_ci LIKE '%".$buscador_apelldo."%' ";
+
+		$consulta =  $this->db->query($query);
+
+		if ($consulta->num_rows() > 0){
+			return $consulta->result();
+		}else{
+			return false;
+		}
+    }
+	public function cantidadEstudiantes($buscar = False){
+		$query = "SELECT count(cu.nombre) as totalregistros
+ 			    FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) where cu.nombre  COLLATE utf8_unicode_ci LIKE '%".$buscar."%'  OR cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$buscar."%' OR cu.codigo_joven COLLATE utf8_unicode_ci LIKE '%".$buscar."%' ";
+		$consulta =  $this->db->query($query);
+		if ($consulta->num_rows() > 0){
+			return $consulta->result();
+		}else{
+			return false;
+		}
+	}
     public function save_estudiante($estudiante){
     	 return $this->db->insert('cat_usuarios', $estudiante);
     }
@@ -72,11 +165,27 @@ class Estudiante_model extends CI_Model {
 	public function get_estudiante_header_email_pdf($id_estudiante){
 
 		$query = $this->db->query(" SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.correo,
-											cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo, rs.fecha, rs.hora, rs.id_h_pago
+											cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo, rs.fecha, rs.hora, rs.id_h_pago, rs.folio
 									FROM cat_usuarios cu 
 										  inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
 										  inner join tab_recargas_de_saldo rs on (cu.id_usuario = rs.id_usuario) 
 									where cu.id_usuario = $id_estudiante ORDER BY rs.id_h_pago DESC LIMIT 1 ");
+		if ($query->num_rows() > 0){
+			return $query->result();
+		}else{
+			return false;
+		}
+
+	}
+
+	/*se obtienen los datos del usuario del sistema*/
+	public function getAdminData($id_user_sistem)
+	{
+		$this->db->select("cus.nombre, cus.ap_pat, cus.ap_mat");
+		$this->db->where("cus.id_user_sistem",$id_user_sistem);
+		$this->db->from("cat_user_sistem cus");
+		$query = $this->db->get();
+
 		if ($query->num_rows() > 0){
 			return $query->result();
 		}else{

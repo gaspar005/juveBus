@@ -7,7 +7,7 @@ class Saldo_ctrl extends CI_Controller {
         parent::__construct();   
         $this->load->model('web/Saldos_model', 'saldos_model');
 		$this->load->model('web/Estudiante_model', 'Estudiante_model');
-		$this->load->model("Admin_model");
+		//$this->load->model("Admin_model");
 		$this->load->helper('date');
 		$this->load->helper('url');
     }
@@ -72,7 +72,7 @@ class Saldo_ctrl extends CI_Controller {
 
 		/**************************************** Hoja de estilos ****************************************************/
 		$stylesheet = file_get_contents( base_url('assets/css/bootstrap-real.css'));
-		var_dump($stylesheet);
+
 		$mpdf->WriteHTML($stylesheet, 1);
 		/******************************************** head pdf ******************************************************/
 		$data['datosEstudiante'] = $this->Estudiante_model->get_estudiante_header_email_pdf($idUsuario);
@@ -104,6 +104,8 @@ class Saldo_ctrl extends CI_Controller {
 	   $hora  = $currentDateTime['time'];
 	   $created = $currentDateTime['created'];
 
+	   $ultimoValor = $this->saldos_model->get_ultimo_elemento();
+
 	   $idUsuario = $this->input->post("id");
 	   $importe = $this->input->post("saldo");
 	   $dataRecargas = array(
@@ -112,10 +114,12 @@ class Saldo_ctrl extends CI_Controller {
 		   'importe'=>         $this->input->post("saldo"),
 		   'fecha' => $fecha,
 		   'hora' => $hora,
+		   'folio' => $ultimoValor,
 		   'fecha_creacion' => $created
 	   );
 
-	   $query = $this->Admin_model->altaSaldo($idUsuario,$importe,$dataRecargas,$currentDateTime);
+	   $query = $this->saldos_model->altaSaldo($idUsuario,$importe,$dataRecargas,$currentDateTime);
+
 	   $query1 = $this->crear_pdf_and_envio_correo($idUsuario, $importe);
 
 	   if ($query == 1 && $query1 == true) {
@@ -175,17 +179,17 @@ class Saldo_ctrl extends CI_Controller {
 
 		   $mail->Host       = 'mx1.hostinger.mx'; // Specify main and backup SMTP servers
 		   $mail->SMTPAuth   = true; // Enable SMTP authentication
-		   $mail->Username   = 'test_juvebus@go-to-school.juventudqroo.com'; // SMTP username
-		   $mail->Password   = 'HolaJorge'; // SMTP password
+		   $mail->Username   = 'juvebus_iqj@juvebus.juventudqroo.com'; // SMTP username
+		   $mail->Password   = 'imjuvechetumal_2018'; // SMTP password
 		   $mail->SMTPSecure = 'tls'; // Enable TLS encryption, `ssl` also accepted
 		   $mail->Port       = 587; // TCP port to connect to
 
-		   $mail->setFrom('test_juvebus@go-to-school.juventudqroo.com', 'IQJ');
+		   $mail->setFrom('juvebus_iqj@juvebus.juventudqroo.com', 'IQJ');
 		   $mail->addAddress($email_estudiante);
 		   $mail->addStringAttachment($content, 'recargasaldo.pdf', $encoding = 'base64', $type = 'application/octet-stream');
 		   $mail->isHTML(true); // Set email format to HTML
 
-		   $mail->Subject = 'LA RECARGA DE SU SALDO FUE EXITOSAMENTE';
+		   $mail->Subject = 'LA RECARGA DE SU SALDO SE REALIZÓ CORRECTAMENTE';
 		   $mail->Body    = $textArea;
 			if($mail->send()) {
 				return TRUE;
