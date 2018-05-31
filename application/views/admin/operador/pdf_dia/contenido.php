@@ -18,7 +18,7 @@
 <table  class="tabla-color margen-arriba" id="" style="font-size: 15px; margin-top:40px" width="100%">
 	<thead>
 		<tr>
-			<th COLSPAN="3" class="text-center text-success" style="font-size: 15px; color: #0a6aa1">Detalles Corte del dia <?php echo $datosCorte['fecha'] ?> </th>
+			<th COLSPAN="3" class="text-center text-success" style="font-size: 15px; color: #0a6aa1">Detalles Corte del día <?php echo $datosCorte['fecha'] ?> </th>
 		</tr>
 		<tr class="warning">
 			<th style="font-size: 15px; text-align: center"> <small> RFC: </small>    <?php echo $datosOperador[0]->rfc; ?></th>

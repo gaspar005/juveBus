@@ -206,6 +206,7 @@
 								<?php echo form_close(); ?>
 							</div>
 							<?php } ?>
+
 							<div class="col-md-2 pull-right" >
 								<?php echo form_open('web/Estudiantes_ctrl/mostrar');?>
 								<?php echo form_submit("", "Mostrar Todo", "class= 'btn btn-info btn-block'");?>
@@ -419,7 +420,7 @@
 <div id="editarEstudiante" class="modal  fade " role="dialog" >
     <div class="modal-xs" >
         <div class="modal-content">
-            <form id="form_edit_estudiante">
+            <form id="form_edit_estudiante" method="POST">
                 <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" >&times;</button>
                         <h4 id="myModalLabel" class="text-primary">Editar Estudiante</h4>
@@ -505,7 +506,6 @@
 							<div class="col-sm-2 col-md-2 col-lg-3" >
 								<label class="color-input">Grado de Estudio <span style="color: red;">*</span></label>
 								<select class="validate form-control margenes" name="id_grado_estudio" id="selectGradoEstudioEdit" data-validate="required" tabindex="17" >
-									<option value=""  selected disabled hidden> seleccione </option>
 								</select>
 							</div>
 							<div class="col-sm-2 col-md-2 col-lg-3" >
@@ -516,9 +516,6 @@
 							<div class="col-sm-2 col-md-2 col-lg-2" >
 								<label for="lugar_nacimiento " class="color-input">Turno / Horario <span style="color: red;">*</span></label>
 								<select name="turno_horario" class="validate form-control margenes" id="turnoEdit" data-validate="required" tabindex="19" >
-									<option value=""  selected disabled hidden> seleccione </option>
-									<option value="Matitino">Matutino</option>
-									<option value="Vespertino">Vespertino</option>
 								</select>
 							</div>
 							<div class="col-sm-2 col-md-2 col-lg-3" >

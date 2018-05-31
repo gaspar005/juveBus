@@ -69,7 +69,7 @@
 			<div class="modal-content" id="modal_content_dia">
 				<div class="modal-header btn-info">
 					<button type="button" class="close" data-dismiss="modal" onclick="close_pdf_operador_day()" aria-label="Close"><span aria-hidden="true" style="text-decoration-color: honeydew;"><strong>Salir</strong></span></button>
-					<h4 class="modal-title">Corte por Dia</h4>
+					<h4 class="modal-title">Corte por día</h4>
 					<!--	AQUI SE CREA EL CONTENIDO DEL PDF	-->
 				</div>
 			</div>
@@ -81,7 +81,7 @@
 			<div class="modal-content" id="modal_content_dia_consulta">
 				<div class="modal-header btn-info">
 					<button type="button" class="close" data-dismiss="modal" onclick="close_pdf_operador_dia_consulta()" aria-label="Close"><span aria-hidden="true" style="text-decoration-color: honeydew;"><strong>Salir</strong></span></button>
-					<h4 class="modal-title">Corte por Dia</h4>
+					<h4 class="modal-title">Corte por día</h4>
 					<!--	AQUI SE CREA EL CONTENIDO DEL PDF	-->
 				</div>
 			</div>
@@ -93,7 +93,7 @@
 			<div class="modal-content" id="modal_content_rango">
 				<div class="modal-header btn-info">
 					<button type="button" class="close" data-dismiss="modal" onclick="close_pdf_operador_dias_rango()" aria-label="Close"><span aria-hidden="true" style="text-decoration-color: honeydew;"><strong>Salir</strong></span></button>
-					<h4 class="modal-title">Corte por Rango dias</h4>
+					<h4 class="modal-title">Corte por rango de dias</h4>
 
 				</div>
 			</div>

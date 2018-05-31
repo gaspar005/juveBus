@@ -76,7 +76,7 @@ if (window.location.href === baseURL+"dashboard") {
 		img_loding.setAttribute("id", "img_load");
 		loading.appendChild(img_loding);*/
 		const xhr_operdor_dia = new XMLHttpRequest();
-		xhr_operdor_dia.open('GET', baseURL + '/web/Deshboard_ctrl/get_estadisticas_operador_dia', true);
+		xhr_operdor_dia.open('GET', baseURL + 'web/Deshboard_ctrl/get_estadisticas_operador_dia', true);
 		xhr_operdor_dia.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhr_operdor_dia.onload = function () {
 			if (this.readyState == 4 && this.status === 200) {

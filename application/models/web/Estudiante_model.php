@@ -96,7 +96,7 @@ class Estudiante_model extends CI_Model {
 					FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
 					 inner join cat_municipios cm on (cu.id_municipio = cm.id_municipio) 
 					 inner join cat_grado_estudio cgs on (cu.id_grado_estudio = cgs.id_grado_estudio) 
- 			  where cu.nombre  COLLATE utf8_unicode_ci LIKE '%".$buscador_nombre."%'  or cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$buscador_apelldo."%' OR cu.ap_mat COLLATE utf8_unicode_ci LIKE '%".$buscador_apelldo."%' LIMIT $inicio, $mostrarpor  ";
+ 			  where cu.nombre  COLLATE utf8_unicode_ci LIKE '%".$buscador_nombre."%' and cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$buscador_apelldo."%'  LIMIT $inicio, $mostrarpor  ";
 
 		$consulta =  $this->db->query($query);
 

@@ -471,8 +471,8 @@ class Operador_ctrl extends CI_Controller {
 		  'margin_top' => 36,
 	  ]);
 	  date_default_timezone_set('America/Cancun');
-//    $fecha = date('Y-m-d');
-	  $fecha = '2018-05-18';
+	  $fecha = date('Y-m-d');
+
 	  $datosCorteDia = $this->Operador_model->getReportePorDia($id_operador,$fecha);
 	  $datosOperador = $this->Dashboard_model->get_operador_header_pdf($id_operador);
 	  /**************************************** Hoja de estilos ****************************************************/

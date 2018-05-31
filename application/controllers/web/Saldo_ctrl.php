@@ -4,25 +4,111 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Saldo_ctrl extends CI_Controller {
 
 	public function __construct(){
-        parent::__construct();   
+        parent::__construct();
+		$this->load->library('pagination');
         $this->load->model('web/Saldos_model', 'saldos_model');
 		$this->load->model('web/Estudiante_model', 'Estudiante_model');
-		//$this->load->model("Admin_model");
 		$this->load->helper('date');
 		$this->load->helper('url');
     }
 
-	public function saldo(){
+	public function saldo($nropagina = FALSE){
 
 		$dato['ruta1'] = "Recarga Saldo";
 		$dato['ruta'] = "Modulo Saldo / Recarga Estudiante";
 		$dato['active'] = "saldos"; 
 		$dato['active1'] = "recarga";
 
+		$inicio = 0;
+		$mostrarpor = 5;
+		$buscador = "";
+		if ($this->session->userdata("cantidad")) {
+			$mostrarpor =  $this->session->userdata("cantidad");
+		}
+		if ($nropagina) {
+			$inicio = ($nropagina - 1) * $mostrarpor;
+		}
+
+		if ($this->session->userdata("busqueda_codigo_joven_saldo")){
+
+			$buscador = $this->session->userdata("busqueda_codigo_joven_saldo");
+			$canditad_registro = $this->Estudiante_model->cantidadEstudiantes($buscador);
+			$config['total_rows'] = $canditad_registro[0]->totalregistros;
+		}
+		elseif ($this->session->userdata("busqueda_nombre_saldo") && $this->session->userdata("busqueda_paterno_saldo")) {
+
+			$buscador_nombre = $this->session->userdata("busqueda_nombre_saldo");
+			$buscador_paterno = $this->session->userdata("busqueda_paterno_saldo");
+			$buscador_materno = $this->session->userdata("busqueda_materno_saldo");
+
+			$canditad_registroNPM = $this->saldos_model->cantidadEstudiantesNPM($buscador_nombre,$buscador_paterno,$buscador_materno);
+			$config['total_rows'] = $canditad_registroNPM[0]->totalregistros;
+		}else{
+			$config['total_rows']  = 0;
+		}
+		$config['base_url'] = base_url()."saldo-recarga/pagina/";
+
+		$config['per_page'] = $mostrarpor;
+		$config['uri_segment'] = 3;
+		$config['num_links'] = 2;
+		$config['use_page_numbers'] = TRUE;
+		$config['first_url'] = base_url()."saldo-recarga";
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='javascript:void(0)'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+		$config['first_tag_open'] = "<li>";
+		$config['first_tagl_close'] = "</li>";
+		$config['last_tag_open'] = "<li>";
+		$config['last_tagl_close'] = "</li>";
+		$this->pagination->initialize($config);
+		if ($this->session->userdata("busqueda_codigo_joven_saldo") ){
+			$data = array(
+				"estudiantes" => $this->Estudiante_model->buscar($buscador,$inicio,$mostrarpor)
+			);
+		}
+		elseif ($this->session->userdata("busqueda_nombre_saldo") && $this->session->userdata("busqueda_paterno_saldo") ){
+			$data = array(
+				"estudiantes" => $this->saldos_model->buscarNomApMate($buscador_nombre,$buscador_paterno,$buscador_materno,$inicio,$mostrarpor)
+			);
+		}else{
+			$data = array(
+				"estudiantes" => null
+			);
+		}
+
 		$this->load->view('global_view/header', $dato);
-        $this->load->view('admin/saldos/recarga');
+        $this->load->view('admin/saldos/recarga', $data);
         $this->load->view('global_view/foother');
 
+	}
+	public function busquedaCJ(){
+
+		$this->session->set_userdata("busqueda_codigo_joven_saldo",$this->input->post("codigo_joven"));
+		redirect(base_url()."saldo-recarga");
+
+	}
+	public function busquedaNombreApe(){
+
+		$this->session->set_userdata("busqueda_nombre_saldo",$this->input->post("nombre"));
+		$this->session->set_userdata("busqueda_paterno_saldo",$this->input->post("paterno"));
+		$this->session->set_userdata("busqueda_materno_saldo",$this->input->post("materno"));
+		redirect(base_url()."saldo-recarga");
+
+	}
+	public function delete_sessionNameApeMate(){
+		$this->session->unset_userdata('busqueda_nombre_saldo');
+		$this->session->unset_userdata('busqueda_paterno_saldo');
+		$this->session->unset_userdata('busqueda_materno_saldo');
+	}
+	public function delete_sessionCJ(){
+		$this->session->unset_userdata('busqueda_codigo_joven_saldo');
 	}
 
 	public function mostrar(){

@@ -21,6 +21,7 @@ $route['operador-registro'] = 'web/Operador_ctrl/registro';
 
 // SALDOS
 $route['saldo-recarga'] = 'web/saldo_ctrl/saldo';
+$route['saldo-recarga/pagina/(:num)'] = 'web/saldo_ctrl/saldo/$1';
 
 $route['404_override'] = 'errors/error_404';
 $route['translate_uri_dashes'] = FALSE;

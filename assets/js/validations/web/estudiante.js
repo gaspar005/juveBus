@@ -1,5 +1,5 @@
 
-    //mayusculas
+    //mayusculas AGREGAR ESTUDIANTE
 	$("#ape_pateID").keyup(function() {
 		$(this).val($(this).val().toUpperCase());
 	});
@@ -34,6 +34,43 @@
 		$(this).val($(this).val().toUpperCase());
 	});
 	$("#lengua_indigenaID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	//LISTA ESTUDIANTE
+	$("#nombreEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#paternoEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#maternoEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#curpEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#fecha_nacimientoEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#lugar_nacimientoEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#localidadEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#coloniaEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#cruzamientosEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#escuelaEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#lengua_indigenaEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#domicilioEdit").keyup(function() {
 		$(this).val($(this).val().toUpperCase());
 	});
 
@@ -634,7 +671,7 @@
 	}
 	function saveEditEstudiante(){
 
-			$("#form_busqueda").validate({
+			$("#form_edit_estudiante").validate({
 				rules: {
 					codigo: {required: true},
 					ape_pate: {required: true},

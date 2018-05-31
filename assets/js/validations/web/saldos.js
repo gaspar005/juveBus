@@ -51,6 +51,51 @@ if (window.location.href === baseURL+"saldo-recarga"){
 
 	});
 
+	function tipo_busqueda_estudiante(tipo){
+
+		if (tipo == 1) {
+
+			const ajaxNameApe = new XMLHttpRequest();
+			ajaxNameApe.open('DELETE', baseURL+'/web/Saldo_ctrl/delete_sessionNameApeMate', true);
+			ajaxNameApe.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			ajaxNameApe.onload = function(){
+				if(this.readyState == 4 && this.status === 200){
+					let nombre = document.getElementById("id_nombre_saldo");
+					let apellidos = document.getElementById("id_paterno_saldo");
+					nombre.textContent = "";
+					nombre.value = "";
+					apellidos.textContent = "";
+					apellidos.value = "";
+				}
+			};
+			ajaxNameApe.send();
+			$("#showContentNombreApellidosConSession").css('display','none');
+			$("#showContentNombreApellidosSinSession").css('display','none');
+			$("#showContentCodigoJovenwithSession").css('display','block');
+			$("#showContentCodigoJovenWithoutSession").css('display','block');
+
+		}
+		if (tipo == 2) {
+
+			const xhr = new XMLHttpRequest();
+			xhr.open('DELETE', baseURL+'/web/Saldo_ctrl/delete_sessionCJ', true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.onload = function(){
+				if(this.readyState == 4 && this.status === 200){
+					let cj = document.getElementById("id_codigo_joven_saldo");
+					cj.textContent = "";
+					cj.value = "";
+				}
+			};
+			xhr.send();
+			$("#showContentCodigoJovenwithSession").css('display','none');
+			$("#showContentCodigoJovenWithoutSession").css('display','none');
+			$("#showContentNombreApellidosConSession").css('display','block');
+			$("#showContentNombreApellidosSinSession").css('display','block');
+
+		}
+	}
+
 	function buscaEstudiante(){
 
 		valorBuscarNombre = $("input[name=nombre]").val();
@@ -66,6 +111,7 @@ if (window.location.href === baseURL+"saldo-recarga"){
 		}
 
 	}
+
 	function mostrarDatos(valorBuscarNombre ,valorBuscarPerterno, valorBuscarMaterno,pagina,cantidad){
 		var l = $("#btn_landa_buscar").ladda();
 		l.ladda('start');
@@ -163,6 +209,7 @@ if (window.location.href === baseURL+"saldo-recarga"){
 	  });
 	}
 	function showDataEstudiante(id, nombre, paterno, materno, codigo_joven, saldo) {
+
 		$("#ladda_btn_alta_saldo").prop('disabled', true);
 		document.getElementById("idEditar").innerHTML=id+"";
 		document.getElementById("idEditar").value=id;
@@ -312,6 +359,4 @@ if (window.location.href === baseURL+"saldo-recarga"){
 			}
 		});
 	}
-}else {
-	console.log("no carga carga este codigo en esta vista (saldos)");
 }
