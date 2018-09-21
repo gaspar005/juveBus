@@ -1,5 +1,5 @@
-if (window.location.href === baseURL+"rigistro-estudiante" || window.location.href === baseURL+"lista-estudiantes") {
-    //mayusculas
+
+    //mayusculas AGREGAR ESTUDIANTE
 	$("#ape_pateID").keyup(function() {
 		$(this).val($(this).val().toUpperCase());
 	});
@@ -36,26 +36,74 @@ if (window.location.href === baseURL+"rigistro-estudiante" || window.location.hr
 	$("#lengua_indigenaID").keyup(function() {
 		$(this).val($(this).val().toUpperCase());
 	});
+	//LISTA ESTUDIANTE
+	$("#nombreEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#paternoEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#maternoEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#curpEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#fecha_nacimientoEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#lugar_nacimientoEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#localidadEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#coloniaEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#cruzamientosEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#escuelaEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#lengua_indigenaEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#domicilioEdit").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
 
 	$(document).ready(function() {
 
-
-		if(window.location.href === baseURL+"rigistro-estudiante"){
 			$("#start_loading_registro").css('display', 'none');
 			$("#showContentRegistro").css('display', 'block');
 			/*AQUI SE VALIDAN LOS CAMPOS MANUALMENTE CON JS */
 			validation.init("form");
-		}
-
-		if(window.location.href === baseURL+"lista-estudiantes"){
 
 			$("#start_loading_lista_estudiante").css('display', 'none');
 			$("#content_lista_estudiante").css('display', 'block');
 			inicalizarDataTable("estudianteListTable");
 			validation.init("form");
-		}
+			mostrarListaEstudiantes();
 
 	});
+
+	function mostrarListaEstudiantes(){
+
+		$("#my_id").change(function(){
+			let selected = $(this).val();
+			$.ajax({
+				url: baseURL+ "web/Estudiantes_ctrl/cantidad",
+				type: "POST",
+				data: {cantidad:selected},
+				success:function(){
+					window.location.href =  baseURL+ "lista-estudiantes";
+				}
+			});
+		});
+
+	}
 
 	function cancelarRegistro() {
 
@@ -426,6 +474,53 @@ if (window.location.href === baseURL+"rigistro-estudiante" || window.location.hr
 
 		return true; //Validado
 	}
+	function showDetailEstudiante(id, codigo_joven,nombre,paterno, materno, curp, nacimiento, lugarNacimiento, correo, sexo, edad, tel_casa, tel_celular, localidad, municipio, colonia,domicilio,cruzamiento_domicilio,grado_estudio,escuela,turno_horario, lengua_indigena){
+
+		document.getElementById("idShow").innerHTML=id+"";
+		document.getElementById("idShow").value=id;
+		let codigo = document.getElementById("codigoShow");
+		codigo.textContent=codigo_joven;
+		let nombreT = document.getElementById("nombreShow");
+		nombreT.textContent=nombre;
+		let paternoT = document.getElementById("paternoShow");
+		paternoT.textContent = paterno;
+		let maternoT = document.getElementById("maternoShow");
+		maternoT.textContent = materno;
+		let curpT = document.getElementById("curpShow");
+		curpT.textContent = curp;
+		let correoT = document.getElementById("correoShow");
+		correoT.textContent = correo;
+		let sexoT = document.getElementById("selectSexoShow");
+		sexoT.textContent = sexo;
+		let tel_casaT = document.getElementById("telCasaShow");
+		tel_casaT.textContent = tel_casa;
+		let movil = document.getElementById("telMovilShow");
+		movil.textContent = tel_celular;
+		let locali = document.getElementById("localidadShow");
+		locali.textContent = localidad;
+		let mini = document.getElementById("municipioShow");
+		mini.textContent = municipio;
+		let cruzamiento = document.getElementById("cruzamientosShow");
+		cruzamiento.textContent = cruzamiento_domicilio;
+		let grado = document.getElementById("grado_estudioShow");
+		grado.textContent = grado_estudio;
+		let escuelaT = document.getElementById("escuelaShow");
+		escuelaT.textContent = escuela;
+		let turno = document.getElementById("turno_horarioShow");
+		turno.textContent = turno_horario;
+		let colo = document.getElementById("coloniaEdit");
+		colo.textContent = colonia;
+		let domici = document.getElementById("domicilioShow");
+		domici.textContent = domicilio;
+		let fecha = document.getElementById("fecha_nacimientoShow");
+		fecha.textContent = nacimiento;
+		let lugar = document.getElementById("lugar_nacimientoShow");
+		lugar.textContent = lugarNacimiento;
+		let lenguaje = document.getElementById("lengua_indigenaShow");
+		lenguaje.textContent = lengua_indigena
+
+
+	}
 	function editEstudiante(id, codigo_joven,nombre,paterno, materno, curp, nacimiento, lugarNacimiento, correo, sexo, edad, tel_casa, tel_celular, localidad, municipio, colonia,domicilio,cruzamiento_domicilio,grado_estudio,escuela,turno_horario, lengua_indigena) {
 
 		var sexos = ["Masculino", "Femenino", "Otro", "Prefiero no decir"];
@@ -574,7 +669,6 @@ if (window.location.href === baseURL+"rigistro-estudiante" || window.location.hr
 			});
 		});
 	}
-
 	function saveEditEstudiante(){
 
 			$("#form_edit_estudiante").validate({
@@ -631,7 +725,52 @@ if (window.location.href === baseURL+"rigistro-estudiante" || window.location.hr
 				}
 			});
 	}
+	function tipo_busqueda(opcion) {
 
-}else {
-	console.log("no carga nada");
-}
+		if (opcion == 1){
+
+			const ajaxNameApe = new XMLHttpRequest();
+			ajaxNameApe.open('DELETE', baseURL+'/web/Estudiantes_ctrl/delete_sessionNameApe', true);
+			ajaxNameApe.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			ajaxNameApe.onload = function(){
+				if(this.readyState == 4 && this.status === 200){
+					let nombre = document.getElementById("id_nombre");
+					let apellidos = document.getElementById("id_apellidos");
+					nombre.textContent = "";
+					nombre.value = "";
+					apellidos.textContent = "";
+					apellidos.value = "";
+				}
+			};
+			ajaxNameApe.send();
+			$("#contentNameAndApeSearch").css('display','none');
+			$("#showWithoutession").css('display','none');
+			$("#showWithSession").css('display','none');
+			$("#contentCJSearch").css('display','block');
+			$("#showWithoutSessionCJ").css('display','block');
+			$("#showWithSessionCJ").css('display','block');
+		}
+		if (opcion == 2 ){
+
+			const xhr = new XMLHttpRequest();
+			xhr.open('DELETE', baseURL+'/web/Estudiantes_ctrl/delete_sessionCJ', true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.onload = function(){
+				if(this.readyState == 4 && this.status === 200){
+					let cj = document.getElementById("id_codigo_joven");
+					cj.textContent = "";
+					cj.value = "";
+				}
+			};
+			xhr.send();
+			$("#contentNameAndApeSearch").css('display','block');
+			$("#showWithSessionCJ").css('display','none');
+			$("#contentCJSearch").css('display','none');
+			$("#showWithoutSessionCJ").css('display','none');
+			$("#showWithSession").css('display','block');
+			$("#showWithoutession").css('display','block');
+
+
+		}
+
+	}

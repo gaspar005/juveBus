@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/logo/juveBUS_192.png');?>" />
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/imgs/logo/juveBUS_192.png');?>" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Login | JuveBUS</title>
 
@@ -15,14 +15,14 @@
 	<link href="<?php echo base_url('assets/css/bootstrap-responsive.min.css'); ?>" rel="stylesheet" type="text/css" />
 
 	<link href="<?php echo base_url('assets/css/font-awesome.css'); ?>" rel="stylesheet">
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 	    
 	<link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet" type="text/css">
 	<link href="<?php echo base_url('assets/css/pages/signin.css'); ?>" rel="stylesheet" type="text/css">
 
 </head>
 
-<body style="background-image: url(<?php echo base_url("assets/img/fondo.jpeg"); ?>);background-repeat: no-repeat; background-size: 100%; height: 150px">
+<body style="background-image: url(<?php echo base_url("assets/imgs/fondo.jpeg"); ?>);background-repeat: no-repeat; background-size: 100%; height: 150px">
 
 	<div class="navbar navbar-fixed-top">
 
@@ -31,10 +31,10 @@
 			<div class="container" style="height: 50px;">
 
 				<a class="brand" href="#" >
-					<img src="<?php echo base_url('assets/img/logo/juveBUS_192.png');?>" alt="">
+					<img src="<?php echo base_url('assets/imgs/logo/juveBUS_192.png');?>" alt="">
 				</a>
 				<a class="brand" href="#" style=" width: 20%; left: 650px; height: 100px; background-color: rgba(158,156,153,0.41)">
-					<img src="<?php echo base_url('assets/img/logo/juventud11.png');?>" alt="" style=" width: 100%; height: 90%"  ">
+					<img src="<?php echo base_url('assets/imgs/logo/juventud11.png');?>" alt="" style=" width: 100%; height: 90%"  ">
 				</a>
 			</div> <!-- /container -->
 		</div> <!-- /navbar-inner -->

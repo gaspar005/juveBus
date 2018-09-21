@@ -63,6 +63,15 @@ class Login_admin_ctrl extends CI_Controller {
 	   redirect(base_url());
 
 	}
+	public function error(){
+
+		if ($this->session->userdata('logged_in') ) {
+			redirect('dashboard');
+		}else{
+			redirect('login');
+		}
+
+	}
 
 
 

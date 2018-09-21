@@ -80,9 +80,13 @@
 
 <!-- js operador -->
 <script src="<?php echo base_url('assets/js/validations/web/operador.js'); ?>"></script>
-
-
+<!-- js saldos -->
 <script src="<?php echo base_url('assets/js/validations/web/saldos.js'); ?>"></script>
+<!-- js ajustes tarifa -->
+<script src="<?php echo base_url('assets/js/validations/web/tarifas.js'); ?>"></script>
+
+
+<script src="<?php echo base_url('assets/js/validations/web/dashboard.js'); ?>"></script>
 
 </body>
 </html>

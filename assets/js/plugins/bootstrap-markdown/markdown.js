@@ -812,7 +812,7 @@
             // Unlike images, alt text is plain text only. no other elements are
             // allowed in there
 
-            // ![Alt text](/path/to/img.jpg "Optional title")
+            // ![Alt text](/path/to/imgs.jpg "Optional title")
             //      1          2            3       4         <--- captures
             var m = text.match( /^!\[(.*?)\][ \t]*\([ \t]*(\S*)(?:[ \t]+(["'])(.*?)\3)?[ \t]*\)/ );
 
@@ -860,7 +860,7 @@
             // out which kind of link we are (reference or direct url)
             text = text.substr( consumed );
 
-            // [link text](/path/to/img.jpg "Optional title")
+            // [link text](/path/to/imgs.jpg "Optional title")
             //                 1            2       3         <--- captures
             // This will capture up to the last paren in the block. We then pull
             // back based on if there a matching ones in the url

@@ -44,8 +44,6 @@
 					Folio: <strong><?php echo $datosEstudiante[0]->folio; ?></strong>
 				<?php else: ?>
 					<?php echo $adminData[0]->nombre.' '.$adminData[0]->ap_pat.' '.$adminData[0]->ap_mat; ?>
-					<br>
-					Folio: <strong><?php echo $datosEstudiante[0]->folio; ?></strong>
 				<?php endif ?>
 				
 			</td>

@@ -32,8 +32,6 @@ $(document).ready(function() {
 	};
 	$.datepicker.setDefaults($.datepicker.regional['es']);
 });
-
-
 function validarYear(year){
 
 	anyo=parseInt(year);

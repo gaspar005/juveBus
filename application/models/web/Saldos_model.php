@@ -38,7 +38,6 @@ class Saldos_model extends CI_Model {
  			    where  cu.nombre COLLATE utf8_unicode_ci  LIKE '%".$nombre."%'  AND cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$ap_pat."%' AND cu.status = $status ";
 
 	  $consulta =  $this->db->query($query);
-//	var_dump($consulta->result());
 	  if ($consulta->num_rows() > 0){
 		  return $consulta->result();
 	  }else{
@@ -46,6 +45,39 @@ class Saldos_model extends CI_Model {
 	  }
 
   }
+  	public function buscarNomApMate($buscador_nombre,$buscador_paterno,$buscador_materno ,$inicio = FALSE, $mostrarpor = FALSE ){
+		$query = "SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento,sd.saldo, cu.curp, cu.sexo, cu.edad,cu.correo, cu.status,
+					cu.colonia,cu.cruzamiento_domicilio,cu.domicilio, cu.lengua_indigena,cu.lugar_nacimiento,cu.localidad,cu.turno_horario,cu.tel_celular,cu.lugar_residencia,
+					  cu.escuela,cu.tel_casa,
+					  cm.nombre as municipio, 
+					  cgs.nombre as grado_estudio
+					FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
+					 inner join cat_municipios cm on (cu.id_municipio = cm.id_municipio) 
+					 inner join cat_grado_estudio cgs on (cu.id_grado_estudio = cgs.id_grado_estudio) 
+ 			  where cu.nombre  COLLATE utf8_unicode_ci LIKE '%".$buscador_nombre."%' and cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$buscador_paterno."%' and cu.ap_mat COLLATE utf8_unicode_ci LIKE '%".$buscador_materno."%'  LIMIT $inicio, $mostrarpor  ";
+
+		$consulta =  $this->db->query($query);
+
+		if ($consulta->num_rows() > 0){
+			return $consulta->result();
+		}else{
+			return false;
+		}
+	}
+
+	public function cantidadEstudiantesNPM($buscador_nombre = FALSE, $buscador_paterno = FALSE, $buscador_materno = FALSE){
+		$query = "SELECT count(cu.nombre) as totalregistros
+ 			    FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) where cu.nombre  COLLATE utf8_unicode_ci LIKE '%".$buscador_nombre."%'  and cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$buscador_paterno."%' and cu.ap_mat COLLATE utf8_unicode_ci LIKE '%".$buscador_materno."%' ";
+
+		$consulta =  $this->db->query($query);
+
+		if ($consulta->num_rows() > 0){
+			return $consulta->result();
+		}else{
+			return false;
+		}
+	}
+
   public function inserta_saldo_estudiante($id_user_sistem, $id_usuario, $saldo,  $date, $now){
 		$recarga_saldo = array(
 			'id_user_sistem' => $id_user_sistem,

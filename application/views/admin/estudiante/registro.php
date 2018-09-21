@@ -17,7 +17,7 @@
   	  visibility: hidden;
 	}
 	.custom-file-input::before {
-	  content: 'Seleccione una Imagen';
+	  content: 'Seleccione una Imágen';
 	  display: inline-block;
 	  background: rgba(39,107,26,0.87);
 	  color: white;
@@ -103,7 +103,7 @@
 </style>
 
 <div id="start_loading_registro" class="container" style="text-align: center; ">
-	<img src="<?php echo base_url('assets/img/loading.gif')?>">
+	<img src="<?php echo base_url('assets/imgs/loading.gif')?>">
 </div>
 
  <div class="main-inner" id="showContentRegistro" style="display: none; background-repeat: no-repeat; background-size: 100%; ">
@@ -116,7 +116,7 @@
 							<hr class="style-eight">
 
 							<div class="col-sm-2 col-md-2 col-lg-3 ">
-				                <label for="codigo" class="color-input">Codigo Joven <span style="color: red;">*</span></label>
+				                <label for="codigo" class="color-input">Código Joven <span style="color: red;">*</span></label>
 				                <input type="text" name="codigo" id="codigoID"  class=" validate form-control margenes" data-validate="required" tabindex="1" onblur="validarCJ(value)" >
 					        </div>
 					        <div class="col-sm-2 col-md-2 col-lg-3" >
@@ -138,7 +138,7 @@
 							</div>
 
 					        <div class="col-sm-2 col-md-2 col-lg-3"  >
-				                <label for="fecha_nacimiento" class="color-input" style="width: 100%;">Fecha Nacimiento <span style="color: red;">*</span></label>
+				                <label for="fecha_nacimiento" class="color-input" style="width: 100%;">Fecha de Nacimiento <span style="color: red;">*</span></label>
 				                <select style="width: 32%; display: inline-block;" name="year_fecha" id="year_fecha_nacimientoEdit" class="validate form-control" tabindex="6" data-validate="required" onchange="validarYear(value);">
 				                	<option class="" style="width: 10%" value="" selected disabled hidden>Año</option>
 				                	<?php
@@ -157,7 +157,7 @@
 				                </select>
 
 				                <select  style="width: 32%; display: inline-block;" name="dia_fecha" id="dia_fecha_nacimientoEdit" class="validate form-control"  data-validate="required" tabindex="8"  >
-				                	<option class="" style="width: 10%" value="" selected disabled hidden>Dia</option>			                	
+				                	<option class="" style="width: 10%" value="" selected disabled hidden>Día</option>
 				                </select>
 					        </div>
 
@@ -215,7 +215,7 @@
 							</div>
 							<div class="col-sm-2 col-md-2 col-lg-3" >
 								<label for="domicilio" class="color-input">Domicilio</label>
-								<input type="text" name="domicilio" class=" form-control margenes" id="domicilioID"  tabindex="17" placeholder="nombre calle, #num casa">
+								<input type="text" name="domicilio" class=" form-control margenes" id="domicilioID"  tabindex="17" placeholder="nombre calle, #número de casa">
 							</div>
 							<div class="col-sm-2 col-md-2 col-lg-3" >
 								<label for="cruzamientos" class="color-input">Cruzamientos </label>
@@ -225,7 +225,7 @@
 							<br><br><br><br><br><br><br>
 							<hr class="escolaridad">
 							<div class="col-sm-2 col-md-2 col-lg-3" >
-								<label class="color-input">Grado Estudio <span style="color: red;">*</span></label>
+								<label class="color-input">Grado de Estudio <span style="color: red;">*</span></label>
 								<select class="validate form-control margenes" name="id_grado_estudio" id="selectGradoEstudio" data-validate="required" tabindex="19" >
 									<option value=""  selected disabled hidden> seleccione </option>
 									<?php if ($grado_estudios != null ): ?>
@@ -251,20 +251,20 @@
 							</div>
 
 							<div class="col-sm-2 col-md-2 col-lg-3" >
-								<label for="lengua_indigena" class="color-input">¿Habla alguna lengua Indigena?</label>
+								<label for="lengua_indigena" class="color-input">¿Habla alguna lengua Indígena?</label>
 								<input type="text" name="lengua_indigena" class="form-control margenes" id="lengua_indigenaID"  tabindex="22" placeholder="Ingrese Lengua indigena">
 							</div>
 
 					        <div class="col-sm-2 col-md-2 col-lg-4" >
-				               <label class="color-input">Imagen permitidos <span style="color: #8a1f11">jpg, png, jpeg </span> <strong>(campo Opcional)</strong>  </label>
+				               <label class="color-input">Imágenes permitidas <span style="color: #8a1f11">jpg, png, jpeg </span> <strong>(campo Opcional)</strong>  </label>
 								<input type="file" name="img_estudiante" class="custom-file-input" class="form-control margenes" tabindex="23" >
 					        </div>
 
-					        <div class="col-sm-2 col-md-2 col-lg-3 pull-right button-cta" >
-				                <button style="background:#A0A5A7;  border: 0" id="btn_cancelar_estudiante" type="button" class=" btn btn-default " data-style="expand-left"  onclick="cancelarRegistro()"  >
+					        <div class="col-lg-3 pull-right" >
+				                <button style="background:#A0A5A7;  border: 0" id="btn_cancelar_estudiante" type="button" data-style="expand-left" class=" ladda-button btn btn-default "   onclick="cancelarRegistro()"  >
 				                	 Cancelar
 				                </button>
-				                <button style="background: #00BA8B; border: 0" id="btn_guardar_estudiante" type="submit" class="ladda-button btn btn-primary" data-style="expand-left" tabindex="24" onclick="saveEstudent()">
+				                <button style="background: #00BA8B; border: 0" id="btn_guardar_estudiante" type="submit"  data-style="expand-left" class="ladda-button btn btn-primary" tabindex="24" onclick="saveEstudent()">
 				                	 Guardar
 				                </button>
 					        </div>

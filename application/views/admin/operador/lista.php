@@ -33,7 +33,7 @@
 	}
 </style>
 <div id="start_loading_lista_operador" class="container" style="text-align: center">
-	<img src="<?php echo base_url('assets/img/loading.gif')?>">
+	<img src="<?php echo base_url('assets/imgs/loading.gif')?>">
 </div>
 <div class="main-inner " id="showContentListaOperadores" style="display: none">
 	<div class="container" >
@@ -49,7 +49,7 @@
     						                <th>Nombre</th>
     						                <th>Apellidos</th>
 											<th>Fecha Nacimiento</th>
-											<th>TELEFONO</th>
+											<th>TELÉFONO</th>
 											<th>COLONIA</th>
 											<th>DOMICILIO</th>
 											<th>CRUZAMIENTOS</th>
@@ -113,31 +113,31 @@
                 <input type="hidden" name="id" id="idEditar" value="">
                 <div class="row">
 						<div class="col-sm-3 col-md-3">
-							<label for="rfc">RFC</label>
+							<label for="rfc">RFC <span style="color:red;">*</span> </label>
 							<input type="text" name="rfc" id="rfcEdit" class="validate form-control margenes" tabindex="1" data-validate="required">
 						</div>
 						<div class="col-sm-3 col-md-3">
-                            <label for="ap_pat">Apellido Paterno</label>
+                            <label for="ap_pat">Apellido Paterno <span style="color:red;">*</span></label>
                             <input type="text" name="ap_pat" id="ap_patEdit" class="validate form-control margenes" tabindex="2" data-validate="required">
                         </div>
 						<div class="col-sm-3 col-md-3">
-							<label for="ap_mat">Apelldio Materno</label>
+							<label for="ap_mat">Apelldio Materno <span style="color:red;">*</span></label>
 							<input type="text" name="ap_mat" id="ap_matEdit" class="validate form-control margenes " tabindex="3" data-validate="required">
 						</div>
 						<div class="col-sm-3 col-md-3">
-							<label for="num_plaza">Nombre</label>
+							<label for="num_plaza">Nombre <span style="color:red;">*</span> </label>
 							<input type="text" name="nombre" id="nombreEdit" class="validate form-control margenes" tabindex="4" data-validate="required">
 						</div>
 						<div class="col-sm-3 col-md-3">
-							<label for="fecha_nacimientoe">Fecha Nacimiento</label>
+							<label for="fecha_nacimientoe">Fecha Nacimiento <span style="color:red;">*</span></label>
 							<input type="date" name="fecha_nacimiento" id="fecha_nacimeintoEdit" class="validate form-control margenes" tabindex="5" data-validate="required">
 						</div>
 						<div class="col-sm-3 col-md-3">
-							<label for="telefonoEdit">Telefono</label>
+							<label for="telefonoEdit">Teléfono <span style="color:red;">*</span></label>
 							<input type="text" name="telefono" id="telefonoEdit" class="validate form-control margenes" tabindex="6" data-validate="required">
 						</div>
 						<div class="col-sm-3 col-md-3">
-							<label for="colonia">Colonia</label>
+							<label for="colonia">Colonia </label>
 							<input type="text" name="colonia" id="coloniaEdit" class="form-control margenes" tabindex="7">
 						</div>
 						<div class="col-sm-3 col-md-3">

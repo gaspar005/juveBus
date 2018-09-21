@@ -10,7 +10,7 @@
 		 visibility: hidden;
 	 }
 	.custom-file-input::before {
-		content: 'Seleccione una Imagen';
+		content: 'Seleccione una Imágen';
 		display: inline-block;
 		background: rgba(39,107,26,0.87);
 		color: white;
@@ -62,7 +62,7 @@
 </style>
 
 <div id="start_loading_registro_operador" class="container" style="text-align: center">
-	<img src="<?php echo base_url('assets/img/loading.gif')?>">
+	<img src="<?php echo base_url('assets/imgs/loading.gif')?>">
 </div>
 
 <div class="container" id="showContentRegistroOperador" style="display: none">
@@ -91,7 +91,7 @@
 								</div>
 						        <div class="col-sm-3 col-md-3 col-lg-3" >
 
-					                <label style="width: 100%;" for="fecha_nacimiento">Fecha Nacimiento  <span style="color:red;">*</span></label>
+					                <label style="width: 100%;" for="fecha_nacimiento">Fecha de Nacimiento  <span style="color:red;">*</span></label>
 
 					                <select style="width: 30%; display: inline-block;" name="year_fecha" id="year_fecha_nacimientoEdit" class="validate form-control" data-validate="required" tabindex="5" onchange="validarYear(value);">
 					                	<option class="" style="width: 10%" value="" selected disabled hidden>Año</option>
@@ -109,34 +109,39 @@
 					                	   <option class="" style="width: 10%" value="" selected disabled hidden>Mes</option>;
 					                </select>
 					                <select  style="width: 30%; display: inline-block;" class="validate form-control"  name="dia_fecha" id="dia_fecha_nacimientoEdit" data-validate="required" >
-					                	<option class="" style="width: 10%" value="" selected disabled hidden>Dia</option>			                	
+					                	<option class="" style="width: 10%" value="" selected disabled hidden>Día</option>
 					                </select>
 						        </div>
+
+								<div class="col-sm-2 col-md-2 col-lg-3" >
+									<label for="correo">Correo  <span style="color:red;">*</span></label>
+									<input type="email" name="correo" id="correoID" class="validate form-control margenes" data-validate="required,emails"   tabindex="6">
+								</div>
 						        <div class="col-sm-2 col-md-2 col-lg-3" >
-									<label for="nombre">Telefono  <span style="color:red;">*</span></label>
-									<input type="text" name="telefono" id="telefonoID" class="validate form-control margenes" data-validate="required"   tabindex="6">
+									<label for="nombre">Teléfono  <span style="color:red;">*</span></label>
+									<input type="text" name="telefono" id="telefonoID" class="validate form-control margenes" data-validate="required"   tabindex="7">
 						        </div>
 						        <div class="col-sm-2 col-md-2 col-lg-3" >
 									<label for="nombre">Colonia  </label>
-									<input type="text" name="colonia" id="coloniaID" class="form-control margenes"  tabindex="7">
+									<input type="text" name="colonia" id="coloniaID" class="form-control margenes"  tabindex="8">
 						        </div>
 								<div class="col-sm-2 col-md-2 col-lg-3" >
 									<label for="nombre">Domicilio  </label>
-									<input type="text" name="domicilio" id="domicilioID" class="form-control margenes"  tabindex="8" placeholder="Nombre Calle, #Numero Casa">
+									<input type="text" name="domicilio" id="domicilioID" class="form-control margenes"  tabindex="9" placeholder="Nombre Calle, #Número de Casa">
 						        </div>
 								<div class="col-sm-2 col-md-2 col-lg-4" >
 									<label for="cruzamientos">Cruzamientos </label>
-									<input type="text" name="cruzamientos" id="cruzamientosID" class="form-control margenes" tabindex="9" placeholder="Calle1, Calle2">
+									<input type="text" name="cruzamientos" id="cruzamientosID" class="form-control margenes" tabindex="10" placeholder="Calle1, Calle2">
 						        </div>
 								<div class="col-sm-2 col-md-2 col-lg-4" >
-									<label class="color-input">Imagen permitidos <span style="color: #8a1f11">jpg, png, jpeg </span> <strong>(campo Opcional)</strong>  </label>
-									<input type="file" name="img_operador" class="custom-file-input" class="form-control margenes" tabindex="23" >
+									<label class="color-input">Imágenes permitidas <span style="color: #8a1f11">jpg, png, jpeg </span> <strong>(campo Opcional)</strong>  </label>
+									<input type="file" name="img_operador" class="custom-file-input" class="form-control margenes" tabindex="11" >
 								</div>
 						        <div class="col-sm-2 col-md-2 col-lg-3 pull-right button-cta" >
 					                <button id="btn_cancelar_estudiante" type="button" class=" btn btn-default " data-style="expand-left"  onclick="cancelSaveOperador()">
 					                	 Cancelar
 					                </button>
-					                <button id="btn_guardar_operador" type="submit" class=" ladda-button btn btn-primary" data-style="expand-left" tabindex="10" onclick="saveOperador()">
+					                <button style="background: #00BA8B; border: 0" id="btn_guardar_operador" type="submit" class=" ladda-button btn btn-primary" data-style="expand-left" tabindex="12" onclick="saveOperador()">
 					                	 Guardar
 					                </button>
 						        </div>			          
