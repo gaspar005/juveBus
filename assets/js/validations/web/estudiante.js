@@ -1,288 +1,69 @@
-if (window.location.href === "http://localhost/juveBus/rigistro-estudiante" || window.location.href === "http://localhost/juveBus/lista-estudiantes") {
+if (window.location.href === baseURL+"rigistro-estudiante" || window.location.href === baseURL+"lista-estudiantes") {
+    //mayusculas
+	$("#ape_pateID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#ape_matID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#nombreID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#curpID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#lugar_nacimientoID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#localidadID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#coloniaID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#domicilioID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#cruzamientosID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#selectMunicipio").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#escuelaID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	$("#lengua_indigenaID").keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
 
 	$(document).ready(function() {
-		//mayusculas
-		$('input[type=text]').keyup(function() {
-			$(this).val($(this).val().toUpperCase());
-		});
 
-		if(window.location.href === "http://localhost/juveBus/rigistro-estudiante"){
+
+		if(window.location.href === baseURL+"rigistro-estudiante"){
 			$("#start_loading_registro").css('display', 'none');
 			$("#showContentRegistro").css('display', 'block');
-
 			/*AQUI SE VALIDAN LOS CAMPOS MANUALMENTE CON JS */
 			validation.init("form");
-			const ap_pat = document.querySelector('#ape_pateID');
-			ap_pat.addEventListener('keydown', verificarCampo);
-			const ap_mat = document.querySelector('#ape_matID');
-			ap_mat.addEventListener('keydown', verificarCampo);
-			const nombre = document.querySelector('#nombreID');
-			nombre.addEventListener('keydown', verificarCampo);
-			const curp = document.querySelector('#curpID');
-			curp.addEventListener('keydown', verificarCampo);
-			const anio = document.querySelector('#year_fecha_nacimientoEdit');
-			anio.addEventListener('keydown', verificarCampo);
-			const mes_val = document.querySelector('#mes_fecha_nacimientoEdit');
-			mes_val.addEventListener('keydown', verificarCampo);
-			const dia_val = document.querySelector('#dia_fecha_nacimientoEdit');
-			dia_val.addEventListener('keydown', verificarCampo);
-			const sexo = document.querySelector('#selectSexo');
-			sexo.addEventListener('keydown', verificarCampo);
-			const email = document.querySelector('#emailID');
-			email.addEventListener('keydown', verificarCampo);
-			const movil = document.querySelector('#telMovilID');
-			movil.addEventListener('keydown', verificarCampo);
-			const lugar_nacimiento = document.querySelector('#lugar_nacimientoID');
-			lugar_nacimiento.addEventListener('keydown', verificarCampo);
-			const localidad = document.querySelector('#localidadID');
-			localidad.addEventListener('keydown', verificarCampo);
-			const municipio = document.querySelector('#selectMunicipio');
-			municipio.addEventListener('keydown', verificarCampo);
-			const grado_estudio = document.querySelector('#selectGradoEstudio');
-			grado_estudio.addEventListener('onchange', verificarCampo);
-			const escuela = document.querySelector('#escuelaID');
-			escuela.addEventListener('keydown', verificarCampo);
-			const turno = document.querySelector('#turnoID');
-			turno.addEventListener('onchange', verificarCampo);
-
-			function verificarCampo(){
-				if (ap_pat.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (ap_mat.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (nombre.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (curp.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (anio.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (mes_val.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (dia_val.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (sexo.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (email.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (movil.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (lugar_nacimiento.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (localidad.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (municipio.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (grado_estudio.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (escuela.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-				if (turno.value === ""){
-					validation.init("form");
-					document.getElementById("btn_guardar_estudiante").disabled = true;
-				}else{
-					document.getElementById("btn_guardar_estudiante").disabled = false;
-				}
-			}
 		}
 
-		if(window.location.href === "http://localhost/juveBus/lista-estudiantes"){
+		if(window.location.href === baseURL+"lista-estudiantes"){
 
 			$("#start_loading_lista_estudiante").css('display', 'none');
 			$("#content_lista_estudiante").css('display', 'block');
-
 			inicalizarDataTable("estudianteListTable");
-
-			const ap_pat = document.querySelector('#paternoEdit');
-			ap_pat.addEventListener('keydown', verificarCampoEdit);
-			const ap_mate = document.querySelector('#maternoEdit');
-			ap_mate.addEventListener('keydown', verificarCampoEdit);
-			const nombre_edit = document.querySelector('#nombreEdit');
-			nombre_edit.addEventListener('keydown', verificarCampoEdit);
-			const curpEdit = document.querySelector('#curpEdit');
-			curpEdit.addEventListener('keydown', verificarCampoEdit);
-			const fecha_nacimientoEdit = document.querySelector('#fecha_nacimientoEdit');
-			fecha_nacimientoEdit.addEventListener('keydown', verificarCampoEdit);
-			const selectSexoEdit = document.querySelector('#selectSexoEdit');
-			selectSexoEdit.addEventListener('keydown', verificarCampoEdit);
-			const correoEditar = document.querySelector('#correoEditar');
-			correoEditar.addEventListener('keydown', verificarCampoEdit);
-
-			document.querySelector('#telMovilEdit').addEventListener('keydown', validarNumero);
-			function validarNumero() {
-				var numeroTelefono = document.getElementById('telMovilEdit');
-				var expresionRegular1 = /^([0-9]+){9}$/;//<--- con esto vamos a validar el numero
-				var expresionRegular2 = /\s/;//<--- con esto vamos a validar que no tenga espacios en blanco
-				console.log(numeroTelefono.value);
-				if (numeroTelefono.value === '') {
-					document.getElementById("guarda_datos_editados").disabled = true;
-					document.getElementById("telMovilEdit").style.border = "solid red";
-					return false
-				} else if (expresionRegular2.test(numeroTelefono.value)) {
-					document.getElementById("guarda_datos_editados").disabled = true;
-					document.getElementById("telMovilEdit").style.border = "solid red";
-					alert('error existen espacios en blanco, quite espacios');
-					return false
-				} else if (!expresionRegular1.test(numeroTelefono.value)){
-					document.getElementById("guarda_datos_editados").disabled = true;
-					document.getElementById("telMovilEdit").style.border = "solid red";
-					return false
-				}else if(Number(numeroTelefono.value)){
-					document.getElementById("telMovilEdit").style.border = "1px solid #ccc";
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-			}
-			const lugar_nacimientoEdit = document.querySelector('#lugar_nacimientoEdit');
-			lugar_nacimientoEdit.addEventListener('keydown', verificarCampoEdit);
-			const localidadEdit = document.querySelector('#localidadEdit');
-			localidadEdit.addEventListener('keydown', verificarCampoEdit);
-			const selectMunicipioEdit = document.querySelector('#selectMunicipioEdit');
-			selectMunicipioEdit.addEventListener('keydown', verificarCampoEdit);
-			const selectGradoEstudioEdit = document.querySelector('#selectGradoEstudioEdit');
-			selectGradoEstudioEdit.addEventListener('keydown', verificarCampoEdit);
-			const escuelaEdit = document.querySelector('#escuelaEdit');
-			escuelaEdit.addEventListener('keydown', verificarCampoEdit);
-			const turnoEdit = document.querySelector('#turnoEdit');
-			turnoEdit.addEventListener('keydown', verificarCampoEdit);
-			function verificarCampoEdit() {
-				if (ap_pat.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (ap_mate.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (nombre_edit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (curpEdit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (selectSexoEdit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (correoEditar.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (lugar_nacimientoEdit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (localidadEdit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (selectMunicipioEdit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (selectGradoEstudioEdit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (escuelaEdit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-				if (turnoEdit.value === "") {
-					validation.init("form");
-					document.getElementById("guarda_datos_editados").disabled = true;
-				} else {
-					document.getElementById("guarda_datos_editados").disabled = false;
-				}
-			}
+			validation.init("form");
 		}
 
 	});
 
 	function cancelarRegistro() {
+
+		let l = $("#btn_cancelar_estudiante").ladda();
+		l.ladda('start');
+		document.getElementById("btn_guardar_estudiante").disabled = false;
 		$("#form_crear_estudiante")[0].reset();
+		l.ladda('stop');
 	}
 	function cancelarEditRegistro() {
 		$("#form_edit_estudiante")[0].reset();
@@ -297,17 +78,34 @@ if (window.location.href === "http://localhost/juveBus/rigistro-estudiante" || w
 	}
 	function saveEstudent(){
 
-		if (validation.validate("form") === true){
-			document.getElementById("btn_guardar_estudiante").disabled = false;
 			$("#form_crear_estudiante").validate({
 				rules: {
+					codigo: {required: true},
+					ape_pate: {required: true},
+					ape_mate: {required: true},
+					nombre: {required: true},
+					curp: {required: true},
+					year_fecha: {required: true},
+					mes_fecha: {required: true},
+					dia_fecha: {required: true},
+					sexo: {required: true},
+					correo: {required: true},
+					tel_movil: {required: true},
+					lugar_nacimiento: {required: true},
+					localidad: {required: true},
+					id_municipio: {required: true},
+					id_grado_estudio: {required: true},
+					escuela: {required: true},
+					turno_horario: {required: true},
 				},
-				messages: {
+				errorPlacement: function(error,element) {
+					return true;
 				},
 				submitHandler: function(){
-					var formData = new FormData($(".form_create_estudiante")[0]);
-					var l = $("#btn_guardar_estudiante").ladda();
-					l.ladda('start');
+					const formData = new FormData($(".form_create_estudiante")[0]);
+					let btn_guardando = document.getElementById("btn_guardar_estudiante");
+					btn_guardando.textContent = "Guardando";
+					btn_guardando.disabled = true;
 					$.ajax({
 						type: "POST",
 						url:baseURL + "web/Estudiantes_ctrl/guardar_estudiante",
@@ -318,6 +116,8 @@ if (window.location.href === "http://localhost/juveBus/rigistro-estudiante" || w
 						success: function(respuesta) {
 							var obj = JSON.parse(respuesta);
 							if (obj.resultado === true) {
+								btn_guardando.textContent = "Guardar";
+								btn_guardando.disabled = false;
 								//Limpiar formulario
 								$("#form_crear_estudiante")[0].reset();
 								//Mensaje de operación realizada con éxito
@@ -335,12 +135,8 @@ if (window.location.href === "http://localhost/juveBus/rigistro-estudiante" || w
 							}
 						}
 					});
-					l.ladda('stop');
 				}
 			});
-		}else{
-			document.getElementById("btn_guardar_estudiante").disabled = true;
-		}
 	}
 	function validarYear(year){
 
@@ -572,7 +368,6 @@ if (window.location.href === "http://localhost/juveBus/rigistro-estudiante" || w
 	/* MODULO DE EDITAR ESTUDIANTES */
 	function validarCJEditar(codigoJ){
 
-
 		$.ajax({
 			type: "POST",
 			url: baseURL + "web/Estudiantes_ctrl/buscar_codigojoven",
@@ -782,16 +577,26 @@ if (window.location.href === "http://localhost/juveBus/rigistro-estudiante" || w
 
 	function saveEditEstudiante(){
 
-		if (validation.validate("form") === true) {
-
-			document.getElementById("guarda_datos_editados").disabled = false;
-
 			$("#form_edit_estudiante").validate({
 				rules: {
-
+					codigo: {required: true},
+					ape_pate: {required: true},
+					ape_mate: {required: true},
+					nombre: {required: true},
+					curp: {required: true},
+					fecha_nacimiento: {required: true},
+					sexo: {required: true},
+					correo: {required: true},
+					tel_movil: {required: true},
+					lugar_nacimiento: {required: true},
+					localidad: {required: true},
+					id_municipio: {required: true},
+					id_grado_estudio: {required: true},
+					escuela: {required: true},
+					turno_horario: {required: true},
 				},
-				messages: {
-
+				errorPlacement: function(error,element) {
+					return true;
 				},
 				submitHandler: function () {
 					var dataString = $("#form_edit_estudiante").serialize();
@@ -825,9 +630,6 @@ if (window.location.href === "http://localhost/juveBus/rigistro-estudiante" || w
 					});
 				}
 			});
-		}else{
-			document.getElementById("guarda_datos_editados").disabled = true;
-		}
 	}
 
 }else {

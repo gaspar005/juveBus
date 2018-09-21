@@ -15,7 +15,7 @@
 	<table width="100%" style="margin: 0; ">
 		<tr >
 			<td rowspan="2" width="400" >
-				<img style="vertical-align: top; width: 400px" src="<?php echo base_url(); ?>assets/img/logo/juventud.png" />
+				<img style="vertical-align: top; width: 400px" src="<?php echo base_url(); ?>assets/imgs/logo/juventud.png" />
 			</td>
 			<td ></td>
 			<td ></td>
@@ -38,7 +38,16 @@
 			<td></td>
 
 			<td class="text-center" style=" text-align: right; font-size: 11px">
-				<?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellidos'); ?>
+				<?php if ($this->session->userdata('nombre')): ?>
+					<?php echo $this->session->userdata('nombre').' '.$this->session->userdata('apellidos'); ?>
+					<br>
+					Folio: <strong><?php echo $datosEstudiante[0]->folio; ?></strong>
+				<?php else: ?>
+					<?php echo $adminData[0]->nombre.' '.$adminData[0]->ap_pat.' '.$adminData[0]->ap_mat; ?>
+					<br>
+					Folio: <strong><?php echo $datosEstudiante[0]->folio; ?></strong>
+				<?php endif ?>
+				
 			</td>
 		</tr>
 	</table>

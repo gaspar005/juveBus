@@ -1,22 +1,34 @@
-if (window.location.href === "http://localhost/juveBus/operador-registro" || window.location.href === "http://localhost/juveBus/operador-lista"  || window.location.href === "http://localhost/juveBus/operador-reportes")  {
+if (window.location.href === baseURL+"operador-registro" || window.location.href === baseURL+"operador-lista"  || window.location.href === baseURL+"operador-reportes")  {
 
+	$('input[type=text]').keyup(function() {
+		$(this).val($(this).val().toUpperCase());
+	});
+	
 	$(document).ready(function() {
+		
 		//REGISTRO OPERADORES
-		$("#start_loading_registro_operador").css('display', 'none');
-		$("#showContentRegistroOperador").css('display', 'block');
+		if ( window.location.href === baseURL+"operador-registro" ) {
+			$("#start_loading_registro_operador").css('display', 'none');
+			$("#showContentRegistroOperador").css('display', 'block');
+			validation.init("form");
+		}
 
 		//LISTA OPERADORES
-		$("#start_loading_lista_operador").css('display', 'none');
-		$("#showContentListaOperadores").css('display', 'block');
+		if (window.location.href === baseURL+"operador-lista"){
+			$("#start_loading_lista_operador").css('display', 'none');
+			$("#showContentListaOperadores").css('display', 'block');
+		}
+
 		//REPORTES
-		$("#start_loading_reporte_operador").css('display', 'none');
-		$("#showContentReporteOperador").css('display', 'block');
+		if (window.location.href === baseURL+"operador-reportes"){
+			$("#start_loading_reporte_operador").css('display', 'none');
+			$("#showContentReporteOperador").css('display', 'block');
+			$('#starQuery').css('display', 'block');
+			validation.init("form");
+		}
 
-		$('input[type=text]').keyup(function() {
-			$(this).val($(this).val().toUpperCase());
-		});
 
-		$('#starQuery').css('display', 'block');
+
 		inicalizarDataTable("operadorTable");
 	});
 	// METODO PARA EL REPORTE DE OPERADORES
@@ -105,7 +117,7 @@ if (window.location.href === "http://localhost/juveBus/operador-registro" || win
 				var htmlSelectDay = "";
 
 				htmlSelectDay += "<p>Seleccione Dia</p>";
-				htmlSelectDay += "<input style='width:50%'  name='dia' class='form-control'  type='text' id='diaa'  />";
+				htmlSelectDay += "<input style='width:50%'  name='dia' class='form-control datepicker'  type='text' id='diaa'  />";
 
 				$("#showQueryFor").html(htmlSelectDay).css('display', 'block');
 
@@ -166,42 +178,41 @@ if (window.location.href === "http://localhost/juveBus/operador-registro" || win
 							var htmlSelectMes = "";
 							var num_fila = 1;
 							var num_fila1 = 1;
+
 							var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
-							htmlSelectMes += "<p>Seleccione Año y Mes</p>";
+								htmlSelectMes += "<p>Seleccione Año y Mes</p>";
 
-							htmlSelectMes += "<select style='display: inline-block; width: 45%;' class='form-control' name='year' id='yearQuery' > ";
+								htmlSelectMes += "<select style='display: inline-block; width: 45%;' class='validate form-control' name='year' id='yearQuery' data-validate='required'> ";
 
-							htmlSelectMes += "<option  value='' selected disabled hidden>Año</option>";
+								htmlSelectMes += "<option  value='' selected disabled hidden>Año</option>";
 
-							for (l in obj.years) {
+								for (l in obj.years) {
 
-								htmlSelectMes += "<option value='" + obj.years[l].year + "'> " + obj.years[l].year + "  </option>";
+									htmlSelectMes += "<option value='" + obj.years[l].year + "'> " + obj.years[l].year + "  </option>";
 
-								num_fila1++;
-							}
-
-							htmlSelectMes += "</select> ";
-							htmlSelectMes += "<select style='display: inline-block; width: 45%;' class='form-control' name='mes' id='mesQuery' > ";
-
-							htmlSelectMes += "<option value='' selected disabled hidden> Mes</option>";
-							for (l in meses) {
-
-								if (num_fila < 10) {
-									htmlSelectMes += "<option value='0" + num_fila + "'> " + meses[l] + "  </option>";
-								} else {
-									htmlSelectMes += "<option value='" + num_fila + "'> " + meses[l] + "  </option>";
+									num_fila1++;
 								}
 
-								num_fila++;
-							}
-							htmlSelectMes += "</select> ";
+								htmlSelectMes += "</select> ";
+								htmlSelectMes += "<select style='display: inline-block; width: 45%;' class='validate form-control' name='mes' id='mesQuery' data-validate='required'> ";
 
+								htmlSelectMes += "<option value='' selected disabled hidden> Mes</option>";
+								for (l in meses) {
+
+									if (num_fila < 10) {
+										htmlSelectMes += "<option value='0" + num_fila + "'> " + meses[l] + "  </option>";
+									} else {
+										htmlSelectMes += "<option value='" + num_fila + "'> " + meses[l] + "  </option>";
+									}
+
+									num_fila++;
+								}
+								htmlSelectMes += "</select> ";
 							$("#showQueryFor").html(htmlSelectMes).css('display', 'block');
 
 							var showBotonMes = "";
-
-							showBotonMes += "<button id='btn_consulta_por_mes' type='submit' class='ladda-button btn btn-primary' onclick='consultarPorMes()' >consultar Mes</button>";
+							showBotonMes += "<button id='btn_consulta_por_mes' type='submit' class='ladda-button btn btn-primary' onclick='consultarPorMes()'>consultar Mes</button>";
 							$("#showButtonQuery").html(showBotonMes).css('display', 'block');
 
 						}
@@ -574,7 +585,7 @@ if (window.location.href === "http://localhost/juveBus/operador-registro" || win
 
 		 $("#form_edit_operdor")[0].reset();
 	}
-	function editOperador(id, nombre, paterno, materno, rfc, nacimeinto){
+	function editOperador(id, nombre, paterno, materno, rfc, nacimeinto, telefono, colonia, domicilio, cruzamientos){
 
 		document.getElementById("idEditar").innerHTML=id+"";
 		document.getElementById("idEditar").value=id;
@@ -583,6 +594,10 @@ if (window.location.href === "http://localhost/juveBus/operador-registro" || win
 		document.getElementById("ap_matEdit").value=materno;
 		document.getElementById("rfcEdit").value=rfc;
 		document.getElementById("fecha_nacimeintoEdit").value=nacimeinto;
+		document.getElementById("telefonoEdit").value=telefono;
+		document.getElementById("coloniaEdit").value=colonia;
+		document.getElementById("dimicilioEdit").value=domicilio;
+		document.getElementById("cruzmaientosEdit").value=cruzamientos;
 	}
 	function saveEditOperador(){
 
@@ -593,14 +608,11 @@ if (window.location.href === "http://localhost/juveBus/operador-registro" || win
 				ap_pat: {required: true},
 				ap_mat: {required: true},
 				rfc: {required: true},
+				telefono: {required: true},
 				fecha_nacimiento: {required: true, date: true}
 			},
-			messages:{
-				nombre: "Necesario",
-				ap_pat: "Necesario",
-				ap_mat: "Necesario",
-				rfc: "Necesario",
-				fecha_nacimiento: "Necesario"
+			errorPlacement: function(error,element) {
+				return true;
 			},
 			submitHandler: function(){
 
@@ -696,7 +708,7 @@ if (window.location.href === "http://localhost/juveBus/operador-registro" || win
 					}, 2000);
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
-					swal("Error deleting!", "Please try again", "error");
+					swal("Error Al Deshabilitar!", "Verifique su conexion o intente de nuevo", "error");
 				}
 			});
 		});

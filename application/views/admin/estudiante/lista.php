@@ -244,7 +244,7 @@
                             </div>
                             <div class="col-sm-3 col-md-3 col-lg-3" >
                                 <label for="fecha_nacimiento">Fecha Nacimiento <span style="color: red;">*</span></label>
-                                <input type="date" id="fecha_nacimientoEdit" class="validate form-control" data-validate="required"  name="fecha_nacimiento" tabindex="6">
+                                <input type="date" name="fecha_nacimiento" id="fecha_nacimientoEdit" class="validate form-control" data-validate="required" tabindex="6">
                             </div>
 							<div class="col-sm-2 col-md-2 col-lg-3" >
 								<label class="color-input">Sexo <span style="color: red;">*</span></label>
@@ -253,7 +253,7 @@
 							</div>
 							<div class="col-sm-3 col-md-3 col-lg-3" >
                                 <label for="fecha_nacimiento">Correo <span style="color: red;">*</span></label>
-                                <input type="email" id="correoEditar" class="validate form-control margenes" name="correo" tabindex="8" data-validate="required,emails">
+                                <input type="email"  name="correo" id="correoEditar" class="validate form-control margenes" tabindex="8" data-validate="required,emails">
                             </div>
 
 							<br><br><br><br><br><br><br>
@@ -278,8 +278,7 @@
 							</div>
 							<div class="col-sm-2 col-md-2 col-lg-3" >
 								<label for="id_municipio" class="color-input">Municipio <span style="color: red;">*</span></label>
-								<select class="validate form-control margenes" name="id_municipio" id="selectMunicipioEdit" tabindex="13" data-validate="required" >
-
+								<select  name="id_municipio" class="validate form-control margenes" id="selectMunicipioEdit" tabindex="13" data-validate="required" >
 								</select>
 							</div>
 							<div class="col-sm-2 col-md-2 col-lg-3" >
@@ -310,7 +309,7 @@
 
 							<div class="col-sm-2 col-md-2 col-lg-2" >
 								<label for="lugar_nacimiento " class="color-input">Turno / Horario <span style="color: red;">*</span></label>
-								<select class="validate form-control margenes" name="turno_horario" id="turnoEdit" data-validate="required" tabindex="19" >
+								<select name="turno_horario" class="validate form-control margenes" id="turnoEdit" data-validate="required" tabindex="19" >
 									<option value=""  selected disabled hidden> seleccione </option>
 									<option value="Matitino">Matutino</option>
 									<option value="Vespertino">Vespertino</option>

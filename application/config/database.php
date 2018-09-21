@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'iqjmovil',
+	'hostname' => 'mysql.hostinger.mx',
+	'username' => 'u984155773_gtsus',
+	'password' => 'imjuvechetumal_2018',
+	'database' => 'u984155773_gtsdb',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

@@ -28,6 +28,9 @@
         width: 6em;
         margin: 2px;
     }
+	.margenes{
+		margin-bottom: 20px;
+	}
 </style>
 <div id="start_loading_lista_operador" class="container" style="text-align: center">
 	<img src="<?php echo base_url('assets/img/loading.gif')?>">
@@ -42,21 +45,14 @@
     	                        <table id="operadorTable" class="table table-striped table-bordered table-hover" >
     						        <thead>
     						            <tr>
+											<th>RFC</th>
     						                <th>Nombre</th>
     						                <th>Apellidos</th>
-    						                <th>Materno</th>
-    						                <th>RFC</th>
-    						                <th>RFC2</th>
-    						                <th>RFC3</th>
-    						                <th>RFC4</th>
-    						                <th>RFC5</th>
-    						                <th>RFC6</th>
-    						                <th>RFC6</th>
-    						                <th>RFC7</th>
-    						                <th>RFC8</th>
-    						                <th>RFC9</th>
-    						                <th>RFC10</th>
-    						                <th>Fecha Nacimiento</th>
+											<th>Fecha Nacimiento</th>
+											<th>TELEFONO</th>
+											<th>COLONIA</th>
+											<th>DOMICILIO</th>
+											<th>CRUZAMIENTOS</th>
     						                <th  style="text-align: center">Acciones</th>
     						            </tr>
     						        </thead>
@@ -64,22 +60,14 @@
     						            <?php if ($operadores != null ):  ?>
                                     		<?php foreach ($operadores as $operador): ?>
     						            	<tr>
+												<td><label  id="rfc"><?php echo $operador->rfc ?></label></td>
     							                <td><label  id="nombre"><?php echo $operador->nombre ?></label></td>
-    							                <td><label  id="ap_pat"><?php echo $operador->ap_pat ?></label></td>
-    							                <td><label  id="ap_mat"><?php echo $operador->ap_mat ?></label></td>
-    							                <td><label  id="rfc"><?php echo $operador->rfc ?></label></td>
-    							                <td><label  id="rfc">holamundo1</label></td>
-    							                <td><label  id="rfc">holamundo2</label></td>
-    							                <td><label  id="rfc">holamundo3</label></td>
-    							                <td><label  id="rfc">holamundo4</label></td>
-    							                <td><label  id="rfc">holamundo5</label></td>
-    							                <td><label  id="rfc">holamundo6</label></td>
-    							                <td><label  id="rfc">holamundo7</label></td>
-    							                <td><label  id="rfc">holamundo8</label></td>
-    							                <td><label  id="rfc">holamundo9</label></td>
-    							                <td><label  id="rfc">holamundo10</label></td>
-
-    							                <td><label  id="fecha_nacimiento"><?php echo $operador->fecha_nacimiento?></label></td>
+    							                <td><label  id="ap_pat"><?php echo $operador->ap_pat." ".$operador->ap_mat ?></label></td>
+    							                <td><label  id="fecha_nacimiento"><?php echo $operador->fecha_nacimiento ?></label></td>
+    							                <td><label  id="telefono"><?php echo $operador->telefono ?></label></td>
+    							                <td><label  id="colonia"><?php echo $operador->colonia ?></label></td>
+    							                <td><label  id="domicilio"><?php echo $operador->domicilio ?></label></td>
+    							                <td><label  id="cruzamientos"><?php echo $operador->cruzamientos ?></label></td>
     							                <td style="text-align: center">
     							                	<?php if ($operador->status == 1): ?>
     	                                            	<button type="button" class="btn btn-danger btn-rounded centrado"
@@ -93,7 +81,7 @@
                                                         </button>
     	                                            <?php endif ?>
     	                                            	<button  type="button" class="btn btn-info btn-rounded centrado" data-backdrop="static" data-keyboard="false"
-                                                                 onclick="editOperador('<?php echo $operador->id_operador ?>','<?php echo $operador->nombre?>','<?php echo $operador->ap_pat?>','<?php echo $operador->ap_mat ?>', '<?php echo $operador->rfc ?>','<?php echo $operador->fecha_nacimiento ?>')"
+                                                                 onclick="editOperador('<?php echo $operador->id_operador ?>','<?php echo $operador->nombre?>','<?php echo $operador->ap_pat?>','<?php echo $operador->ap_mat ?>', '<?php echo $operador->rfc ?>','<?php echo $operador->fecha_nacimiento ?>','<?php echo $operador->telefono ?>','<?php echo $operador->colonia ?>','<?php echo $operador->domicilio ?>','<?php echo $operador->cruzamientos ?>')"
                                                                  data-toggle="modal" data-target="#editaroperador">
     	                                            		<span class="glyphicon glyphicon-edit"></span> Editar
     	                                            	</button>
@@ -115,7 +103,7 @@
 
 <div class="modal fade" id="editaroperador" role="dialog">
     <div class="modal-dialog modal-lg">
-     <form role="form" id="form_edit_operdor">     
+     <form role="form" id="form_edit_operdor">
       <div class="modal-content">
         <div class="modal-header" >
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -124,31 +112,47 @@
         <div class="modal-body">        
                 <input type="hidden" name="id" id="idEditar" value="">
                 <div class="row">
-                        <div class="col-sm-3 col-md-3">
-                            <label for="num_plaza">Nombre</label>
-                            <input type="text" name="nombre" id="nombreEdit" class="form-control" tabindex="1">
-                        </div>
-                        <div class="col-sm-3 col-md-3">
+						<div class="col-sm-3 col-md-3">
+							<label for="rfc">RFC</label>
+							<input type="text" name="rfc" id="rfcEdit" class="validate form-control margenes" tabindex="1" data-validate="required">
+						</div>
+						<div class="col-sm-3 col-md-3">
                             <label for="ap_pat">Apellido Paterno</label>
-                            <input type="text" name="ap_pat" id="ap_patEdit" class="form-control" tabindex="2">
+                            <input type="text" name="ap_pat" id="ap_patEdit" class="validate form-control margenes" tabindex="2" data-validate="required">
                         </div>
 						<div class="col-sm-3 col-md-3">
 							<label for="ap_mat">Apelldio Materno</label>
-							<input type="text" name="ap_mat" id="ap_matEdit" class="form-control " tabindex="3">
+							<input type="text" name="ap_mat" id="ap_matEdit" class="validate form-control margenes " tabindex="3" data-validate="required">
 						</div>
 						<div class="col-sm-3 col-md-3">
-							<label for="rfc">RFC</label>
-							<input type="text" name="rfc" id="rfcEdit" class="form-control " tabindex="4">
+							<label for="num_plaza">Nombre</label>
+							<input type="text" name="nombre" id="nombreEdit" class="validate form-control margenes" tabindex="4" data-validate="required">
 						</div>
 						<div class="col-sm-3 col-md-3">
 							<label for="fecha_nacimientoe">Fecha Nacimiento</label>
-							<input type="date" name="fecha_nacimiento" id="fecha_nacimeintoEdit" class="form-control " tabindex="5">
+							<input type="date" name="fecha_nacimiento" id="fecha_nacimeintoEdit" class="validate form-control margenes" tabindex="5" data-validate="required">
+						</div>
+						<div class="col-sm-3 col-md-3">
+							<label for="telefonoEdit">Telefono</label>
+							<input type="text" name="telefono" id="telefonoEdit" class="validate form-control margenes" tabindex="6" data-validate="required">
+						</div>
+						<div class="col-sm-3 col-md-3">
+							<label for="colonia">Colonia</label>
+							<input type="text" name="colonia" id="coloniaEdit" class="form-control margenes" tabindex="7">
+						</div>
+						<div class="col-sm-3 col-md-3">
+							<label for="domicilio">Domicilio</label>
+							<input type="text" name="domicilio" id="dimicilioEdit" class="form-control margenes" tabindex="8">
+						</div>
+						<div class="col-sm-3 col-md-5">
+							<label for="cruzamientos">Cruzamientos</label>
+							<input type="text" name="cruzamientos" id="cruzmaientosEdit" class="form-control margenes" tabindex="9">
 						</div>
                 </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelEditOperador()">Cancelar</button>
-            <button type="submit" id="btn_save_edit_operador" class="ladda-button btn btn-primary" data-style="expand-left" tabindex="6" onclick="saveEditOperador()">Guardar Cambios</button>
+            <button type="submit" id="btn_save_edit_operador" class="ladda-button btn btn-primary" data-style="expand-left" tabindex="10" onclick="saveEditOperador()">Guardar Cambios</button>
         </div>
       </div>
     </form>

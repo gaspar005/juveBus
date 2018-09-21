@@ -1,3 +1,5 @@
+if (window.location.href === baseURL+"saldo-recarga"){
+
 $(document).ready(function() {
 	$("#start_loading").css('display', 'none');
 	$("#showContent").css('display', 'block');
@@ -240,7 +242,7 @@ function editar_saldo(){
 	$("#switchCancelarSaldoAgregado").css('display', 'none');
 
 }
-
+/*TESTEO DEL PDF para eviar al correo del estudiante*/
 function printDetalleExtraudinaria(){
 	var id = $("#idEditar").val();
 	var saldo = $("#saldoRecarga").val();
@@ -267,7 +269,7 @@ function saveAltaSaldo() {
 				html:true,
 				confirmButtonColor: "#DD6B55",
 				confirmButtonText: "SI, RECARGAR SALDO AHORA!",
-				closeOnConfirm: false
+				closeOnConfirm: true
 			}, function (isConfirm) {
 				if (!isConfirm) return;
 				var l = $("#ladda_btn_alta_saldo").ladda();
@@ -312,4 +314,7 @@ function saveAltaSaldo() {
 			});
 		}
 	});
+}
+}else {
+	console.log("no carga carga este codigo en esta vista (saldos)");
 }

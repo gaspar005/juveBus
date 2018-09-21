@@ -28,8 +28,11 @@
 
   <!-- Tipo grafia para la letra -->
 	<link href="<?php echo base_url('assets/css/tipografias.css'); ?>" rel="stylesheet">
-	       
+
 	<link href="<?php echo base_url('assets/css/font-awesome.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/font-awesome.min.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/font-awesome-ie7.css'); ?>" rel="stylesheet">
+	<link href="<?php echo base_url('assets/css/font-awesome-ie7.min.css'); ?>" rel="stylesheet">
 	<link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
 
   <!-- Dashboard -->
@@ -48,7 +51,7 @@
   
   <!-- DATATIMEPIKER -->
   <link href="<?php echo base_url('assets/css/plugins/datatimepicker/bootstrap-datetimepicker.css'); ?>" />
-  <link href="<?php echo base_url('assets/css/plugins/datatimepicker/jquery-ui.css'); ?>" rel="stylesheet"/> <!--NO QUITAR AFECTA EL DISEÑO DE CALENDARIO -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet"/> <!--NO QUITAR AFECTA EL DISEÑO DE CALENDARIO -->
 
   <script>
       var baseURL = "<?php echo base_url(); ?>";
@@ -56,6 +59,9 @@
   </script>
 	<style>
 		.dropdown-togglee:hover{ background: #1b6d85 !important; }
+		.ui-datepicker {
+			font-size: 11px;
+		}
 	</style>
 </head>
 <body>

@@ -72,11 +72,27 @@ class Estudiante_model extends CI_Model {
 	public function get_estudiante_header_email_pdf($id_estudiante){
 
 		$query = $this->db->query(" SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.correo,
-											cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo, rs.fecha, rs.hora, rs.id_h_pago
+											cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo, rs.fecha, rs.hora, rs.id_h_pago, rs.folio
 									FROM cat_usuarios cu 
 										  inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
 										  inner join tab_recargas_de_saldo rs on (cu.id_usuario = rs.id_usuario) 
 									where cu.id_usuario = $id_estudiante ORDER BY rs.id_h_pago DESC LIMIT 1 ");
+		if ($query->num_rows() > 0){
+			return $query->result();
+		}else{
+			return false;
+		}
+
+	}
+
+	/*se obtienen los datos del usuario del sistema*/
+	public function getAdminData($id_user_sistem)
+	{
+		$this->db->select("cus.nombre, cus.ap_pat, cus.ap_mat");
+		$this->db->where("cus.id_user_sistem",$id_user_sistem);
+		$this->db->from("cat_user_sistem cus");
+		$query = $this->db->get();
+
 		if ($query->num_rows() > 0){
 			return $query->result();
 		}else{

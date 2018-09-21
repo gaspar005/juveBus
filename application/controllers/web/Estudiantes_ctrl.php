@@ -41,7 +41,7 @@ COMIENZA LA CONSULTA DEL MODULO DE REGISTRO DE ESTUDIANTES
 
             $nombre = explode(".", $nombreEntero);
 
-            $url = "./profiles/".$nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type;
+            $url = "./assets/img/usuarios/profil/".$nombre[0].'_'.str_replace(':', '-', $date).'_'.$now.'.'.$type;
 			$actualYear = date('Y');
 			$estudianteYear = $this->input->post("year_fecha");
 			$edad = $actualYear - $estudianteYear;

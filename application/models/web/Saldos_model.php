@@ -12,10 +12,10 @@ class Saldos_model extends CI_Model {
 
 	$query = "SELECT cu.id_usuario, cu.nombre , cu.ap_pat, cu.codigo_joven, cu.ap_mat, cu.curp, cu.fecha_nacimiento, cu.lugar_nacimiento, cu.lugar_residencia ,sd.saldo
  			  FROM cat_usuarios cu inner join cat_saldos sd on (cu.id_usuario = sd.id_usuario) 
- 			  where cu.nombre LIKE '%".$nombre."%'  AND cu.ap_pat LIKE '%".$ap_pat."%' AND cu.status = $status ";
+ 			  where cu.nombre  COLLATE utf8_unicode_ci LIKE '%".$nombre."%'  AND cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$ap_pat."%' AND cu.status = $status ";
 
     if ($ap_mat != FALSE) {
-    	$cardena = "AND cu.ap_mat LIKE '%".$ap_mat."%' ";
+    	$cardena = "AND cu.ap_mat COLLATE utf8_unicode_ci LIKE '%".$ap_mat."%' ";
     	$query = $query.$cardena;
     }
 
@@ -35,7 +35,7 @@ class Saldos_model extends CI_Model {
   public function buscarCantidad($status, $nombre, $ap_pat, $ap_mat){
 	  $query = "SELECT count(cu.nombre) as totalregistros
  			    FROM cat_usuarios cu
- 			    where cu.nombre LIKE '%".$nombre."%'  AND cu.ap_pat LIKE '%".$ap_pat."%' AND cu.status = $status ";
+ 			    where  cu.nombre COLLATE utf8_unicode_ci  LIKE '%".$nombre."%'  AND cu.ap_pat COLLATE utf8_unicode_ci LIKE '%".$ap_pat."%' AND cu.status = $status ";
 
 	  $consulta =  $this->db->query($query);
 //	var_dump($consulta->result());
@@ -65,6 +65,51 @@ class Saldos_model extends CI_Model {
 		  return false;
 	  }
   }
+  public function get_ultimo_elemento(){
+
+	  $query =$this->db->query("SELECT tab_recargas_de_saldo.id_h_pago, tab_recargas_de_saldo.folio from tab_recargas_de_saldo order by tab_recargas_de_saldo.id_h_pago desc limit 1");
+	  $ultimoValor =$query->result();
+
+	  if ($query->num_rows() <= 0 ){
+		 return 1;
+	  }else{
+		 return $ultimoValor[0]->folio + 1;
+	  }
+
+  }
+  public function altaSaldo($idUsuario,$importe,$dataRecargas,$currentDateTime){
+
+		$this->db->trans_start();
+		$this->db->insert('tab_recargas_de_saldo', $dataRecargas);
+		$query = $this->db->query("SELECT * FROM cat_saldos WHERE cat_saldos.id_usuario = ".$idUsuario);
+		//si se encontraron registros en la tabla cat_saldos se actualiza el saldo
+		if ($query->num_rows() > 0) {
+			$queryCat_saldo = $query->result();
+			$saldo = $queryCat_saldo[0]->saldo;
+			$nuevoSaldo = floatval($saldo) + floatval($importe);
+			$this->db->set('saldo', $nuevoSaldo);
+			$this->db->where('id_usuario', $idUsuario);
+			$this->db->update('cat_saldos');
+		}else{
+			$dataCatSaldos = $this->_dataFormatCatSaldos($idUsuario,$importe,$currentDateTime);
+			$this->db->insert('cat_saldos', $dataCatSaldos);
+		}
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === FALSE)
+		{
+			return false;
+		}else{
+			return true;
+		}
+
+	}
+
+	private function _dataFormatCatSaldos($idUsuario,$importe,$currentDateTime){
+		return array('id_usuario' => $idUsuario,
+			'saldo'=>$importe,
+			'fecha_creacion' =>$currentDateTime['created']);
+	}
 
 }
 

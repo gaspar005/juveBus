@@ -29,7 +29,7 @@ class Operador_model extends CI_Model {
    	}
     public function get_list_operadoresAll(){
 
-      $this->db->select('cat_operadores.id_operador, cat_operadores.nombre, cat_operadores.ap_pat, cat_operadores.ap_mat, cat_operadores.rfc, cat_operadores.status, cat_operadores.fecha_nacimiento');
+      $this->db->select('*');
       $this->db->from('cat_operadores');
 
       $query = $this->db->get();

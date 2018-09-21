@@ -5,8 +5,8 @@ class Operador_ctrl extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model("web/Operador_model", 'Operador_model');
-    $this->load->model("Reportes_model");
-    $this->load->library('bcrypt');
+    	$this->load->model("Reportes_model");
+    	$this->load->library('bcrypt');
 	}
   
   // MODULO DE REGISTRO DE OPERADORES
@@ -47,10 +47,10 @@ class Operador_ctrl extends CI_Controller {
 		  $now = date('Y-m-d');
 
 		  $nombreEntero = $_FILES["img_operador"]["name"];
+		  $nombre1 =  str_replace(' ', '_',$nombreEntero);
+		  $nombre = explode(".", $nombre1);
 
-		  $nombre = explode(".", $nombreEntero);
-
-		  $url = "./../assets/img/operador/perfil" . $nombre[0] . '_' . str_replace(':', '-', $date) . '_' . $now . '.' . $type;
+		  $url = "./assets/img/operador/perfil/" . $nombre[0] . '_' . str_replace(':', '-', $date) . '_' . $now . '.' . $type;
 		  if (in_array($type, array("jpg", "png", "jpeg"))) {
 			  if (is_uploaded_file($_FILES["img_operador"]["tmp_name"])) {
 				  move_uploaded_file($_FILES["img_operador"]["tmp_name"], $url);
@@ -132,8 +132,8 @@ class Operador_ctrl extends CI_Controller {
 
  		$id = $this->input->post('operador');
 
-    date_default_timezone_set('America/Cancun');
-    $fecha = date('Y-m-d');
+    	date_default_timezone_set('America/Cancun');
+    	$fecha = date('Y-m-d');
 
  		$query = $this->Reportes_model->getReportePorDia($id,$fecha);
 
@@ -142,10 +142,10 @@ class Operador_ctrl extends CI_Controller {
           $result['resultado'] = true;
           $result['operador'] = $query;
          
-      } else {
-          $result['resultado'] = false;
-      }
-      echo json_encode($result);
+		  } else {
+			  $result['resultado'] = false;
+		  }
+		  echo json_encode($result);
 
   }
 
@@ -277,6 +277,10 @@ class Operador_ctrl extends CI_Controller {
         'ap_pat' => $this->input->post("ap_pat"),
         'ap_mat' => $this->input->post("ap_mat"),
         'rfc' => $this->input->post("rfc"),
+        'telefono' => $this->input->post("telefono"),
+        'colonia' => $this->input->post("colonia"),
+        'domicilio' => $this->input->post("domicilio"),
+        'cruzamientos' => $this->input->post("cruzamientos"),
         'fecha_nacimiento' => $this->input->post("fecha_nacimiento"),
     );
    
