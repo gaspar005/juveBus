@@ -227,6 +227,21 @@ class User_model extends CI_Model {
 	        return false;
 	    }
 	}
+	/*
+		CAMBIAR CONTRASEÑA
+	*/
+	public function changePassword($codjoven,$new_pwd)
+	{
+		$this->db->set('password', $new_pwd);
+		$this->db->where('codigo_joven', $codjoven);
+		$query = $this->db->update('cat_usuarios'); 
+
+		if ($query) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	
 

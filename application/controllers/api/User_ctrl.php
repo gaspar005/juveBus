@@ -233,6 +233,10 @@ class User_ctrl extends REST_Controller {
 	{
 		$postdata = file_get_contents("php://input");
 
+		$response['data']['matchOldPassword'] 	= false;
+		$response['data']['changedPassword']	= false;
+
+
         if (isset($postdata)){
         	$request = json_decode($postdata);
 
@@ -243,9 +247,17 @@ class User_ctrl extends REST_Controller {
         	$query = $this->User_model->getInfoUser($codigo_joven);
         	if (!is_null($query)) {
         		//VERIFICAR QUE LA CONTRASEÑA ANTERIOR SEA LA CORRECTA
+        		if ($this->bcrypt->check_password($old_pwd, $query[0]->password)) {
+	            	$response['data']['matchOldPassword'] 	= true;
+	            	$response['data']['changedPassword']	= $this->User_model->changePassword($codigo_joven,$this->bcrypt->hash_password($new_pwd));
+		        }else{
+		            $response['data']['matchOldPassword'] = false;
+		        }
         	}
 
         }
+        //IMPRIMIR RESPUESTA EN FORMATO JSON
+        echo(json_encode($response));
 	}
 
 }
